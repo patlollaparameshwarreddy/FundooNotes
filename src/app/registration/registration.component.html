@@ -1,0 +1,50 @@
+<div class='main'fxLayout="row" fxLayoutAlign="center">
+  <mat-card fxFlex="40" fxFlex.xs='40' fxLayout="column" fxLayoutAlign="center">
+    <div>
+      <div >
+        <mat-card-header fxLayoutAlign="center">
+          <mat-card-title>Create an fundoo account</mat-card-title>
+        </mat-card-header>
+      </div>
+      <div fxLayoutAlign="center" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-form-field appearance="outline" fxFlex='50'>
+          <mat-label>FirstName</mat-label>
+          <input matInput [formControl]="firstName">    
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex='50'>
+          <mat-label >LastName</mat-label>
+          <input  matInput [formControl]="lastName">          
+        </mat-form-field> 
+      </div>
+      <label class = "left" class ="text-danger" *ngIf="firstName.invalid && firstName.touched">firstName is required</label>
+      <label class = "right" class ="text-danger" *ngIf="lastName.touched && firstName.invalid">lastName is required</label>
+      <div div fxLayout="column" fxLayoutAlign="space-between stretch" >
+        <mat-form-field appearance="outline">
+          <mat-label >Email</mat-label>
+          <input matInput  [formControl]="email">         
+        </mat-form-field>
+        <label class ="text-danger" *ngIf="email.invalid && email.touched ">email is required</label>
+      </div>
+      
+      <div fxLayoutAlign="center" fxLayoutAlign="center" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-form-field appearance="outline" fxFlex='50'>
+          <mat-label >Password</mat-label>
+          <input matInput  [formControl]="password" type="password"> 
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" fxFlex='50'>
+          <mat-label> ConfirmPassword</mat-label>
+          <input matInput [formControl]="ConfirmPassword" type="password">
+        </mat-form-field>
+      </div>
+      <label class ="text-danger" *ngIf="ConfirmPassword.invalid && ConfirmPassword.touched">ConfirmPassword is required</label>
+      <label class ="text-danger" *ngIf="password.invalid && password.touched">password is required</label>
+      <!-- <label class ="text-danger" *ngIf="ConfirmPassword != password">not</label> -->
+      <div fxLayoutAlign="center" fxLayoutAlign="center" fxLayout="row" fxLayoutAlign="space-between center">
+           <button mat-button color="asset" routerLink="/login">Sign in</button> 
+        <button mat-button color="asset"(click)="signUp()">SignUp</button>
+        
+      </div> 
+    </div>
+  </mat-card>
+</div>

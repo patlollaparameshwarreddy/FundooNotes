@@ -1,0 +1,49 @@
+.main{
+    height: 60%;
+    width: 100%;
+    margin-top: 8%
+
+}
+/*.card{
+    height: 65%;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+}*/
+#text{
+    text-align: center;
+}
+#text1{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2%
+}
+#text2{
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2%
+}
+/*.Registration
+{
+    position: relative;
+    z-index: 1;
+    max-width: auto;
+    margin: auto;
+    padding: 0%;
+    border: 0cm;
+    text-align: center;
+}*/
+
+.left{
+    width:110px;
+    float:left;
+    text-align:left;
+    }
+.right{
+    width:110px;
+    float:right;
+    text-align:right;
+    }

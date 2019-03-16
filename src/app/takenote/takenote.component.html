@@ -1,0 +1,47 @@
+<div *ngIf="!isOpen"  class="addNote" (click)="isOpen=true" >
+
+    Take a note ...
+     
+    <button mat-icon-button   style="left: 9.3cm">
+  <mat-icon aria-label="Example icon-button with a heart icon">
+    check_box 
+  
+  </mat-icon>
+  </button>
+  <button mat-icon-button  style="left: 9.5cm" var=showBrush>
+  <mat-icon aria-label="Example icon-button with a heart icon">
+    brush
+  </mat-icon>
+  </button>
+  <button mat-icon-button   style="left: 9.6cm">
+  <mat-icon aria-label="Example icon-button with a heart icon">
+    image
+  </mat-icon> 
+  </button>
+  
+  </div>
+  
+  <div *ngIf="isOpen"  class="addNote"  [ngStyle]="{'backgroundColor': color}">
+  
+    <div class="addNoteInputDiv">
+  
+      <textarea [ngStyle]="{'backgroundColor': color}" class="addNoteTitleInput" [formControl]="title"  placeholder="Title"><strong>{{hello}}</strong></textarea>
+  
+     
+      <button class="pinIcon" (click)=changePin()>
+
+      </button>
+      <label></label>
+      <textarea [ngStyle]="{'backgroundColor': color}" class="addNoteInput" [formControl]="description" placeholder="Take a note..." ></textarea>
+  
+    </div>
+    
+    <div class="addNoteControlIcon"  >
+      <button mat-button  (click)="close()"style="left:5cm">close </button>
+    </div>
+  
+  <!-- <div *ngIf=noteBar>
+      <app-notebar *ngFor="let note of noteBarValue" [[note]]=note></app-notebar>
+    </div> -->
+    
+    </div>  
