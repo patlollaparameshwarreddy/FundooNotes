@@ -1,16 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FundooNotes.model
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="LoginModel.cs" company="Bridgelabz">
+//   Copyright © 2018 Company
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+namespace FundooNotes.Model
 {
+    using System.ComponentModel.DataAnnotations;
+
+    /// <summary>
+    /// this class is used for getting email and password
+    /// </summary>
     public class LoginModel
     {
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
         [Required]
-        public string email { get; set; }
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
+        /// <value>
+        /// The password.
+        /// </value>
         [Required]
-        public string password { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -25,11 +25,19 @@ namespace FundooNotes.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ColorCode");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("ImageUrl");
+
                     b.Property<bool>("IsArchive");
 
                     b.Property<bool>("IsPin");
 
                     b.Property<bool>("IsTrash");
+
+                    b.Property<string>("Reminder");
 
                     b.Property<string>("TakeANote");
 

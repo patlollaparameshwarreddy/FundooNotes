@@ -1,33 +1,54 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using FundooNotes.model;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UserProfileController.cs" company="Bridgelabz">
+//   Copyright © 2018 Company
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
 namespace WebAPI.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using FundooNotes.Model;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+
+    /// <summary>
+    /// this class is used for getting user data
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/[controller]")]
     [ApiController]
     public class UserProfileController : ControllerBase
     {
-        private UserManager<ApplicationUser> _userManager;
+        /// <summary>
+        /// The user manager
+        /// </summary>
+        private UserManager<ApplicationUser> userManager;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserProfileController"/> class.
+        /// </summary>
+        /// <param name="userManager">The user manager.</param>
         public UserProfileController(UserManager<ApplicationUser> userManager)
         {
-            _userManager = userManager;
+            this.userManager = userManager;
         }
 
-        [HttpGet]
+        /// <summary>
+        /// Gets the user profile.
+        /// </summary>
+        /// <returns>returns the user details</returns>
+        [HttpGet("user")]
         [Authorize]
-        public async Task<Object> GetUserProfile()
+        public async Task<object> GetUserProfile()
         {
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await this.userManager.FindByIdAsync(userId);
             return new
             {
-                user.firstName,
-                user.lastName,
+                user.FirstName,
+                user.LastName,
                 user.Email
             };
         }

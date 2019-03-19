@@ -1,16 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FundooNotes.model
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ForgetPasswordModel.cs" company="Bridgelabz">
+//   Copyright © 2018 Company
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+namespace FundooNotes.Model
 {
+    using System.ComponentModel.DataAnnotations;
+
+    /// <summary>
+    /// this class is used for forget password
+    /// </summary>
     public class ForgetPasswordModel
     {
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
         [Required]
         [DataType(DataType.EmailAddress)]
         [EmailAddress]
-        public string email { get; set; }
+        public string Email { get; set; }
     }
 }

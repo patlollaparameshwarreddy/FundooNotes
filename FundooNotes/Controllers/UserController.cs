@@ -1,39 +1,80 @@
-﻿namespace FundooNotes.Controllers
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UserController.cs" company="Bridgelabz">
+//   Copyright © 2018 Company
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+namespace FundooNotes.Controllers
 {
     using System;
-    using System.Text;
-    using System.Net.Mail;
-    using System.Threading.Tasks;
-    using FundooNotes.model;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Identity.UI.Services;
     using System.IdentityModel.Tokens.Jwt;
-    using Microsoft.IdentityModel.Tokens;
+    using System.Net.Mail;
     using System.Security.Claims;
-    using Microsoft.Extensions.Options;
+    using System.Text;
+    using System.Threading.Tasks;
+    using FundooNotes.Model;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.UI.Services;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Distributed;
+    using Microsoft.Extensions.Options;
+    using Microsoft.IdentityModel.Tokens;
 
+    /// <summary>
+    /// user controller class
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
-        private readonly IDistributedCache _distributedCache;
-        private readonly AppSetting _appSettings;
+        /// <summary>
+        /// The user manager
+        /// </summary>
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public UserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
-            IEmailSender emailSender,IOptions<AppSetting> appSetting,IDistributedCache distributedCache)
+        /// <summary>
+        /// The sign in manager
+        /// </summary>
+        private readonly SignInManager<ApplicationUser> signInManager;
+
+        /// <summary>
+        /// The email sender
+        /// </summary>
+        private readonly IEmailSender emailSender;
+
+        /// <summary>
+        /// The distributed cache
+        /// </summary>
+        private readonly IDistributedCache distributedCache;
+
+        /// <summary>
+        /// The application settings
+        /// </summary>
+        private readonly AppSetting appSettings;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserController"/> class.
+        /// </summary>
+        /// <param name="userManager">The user manager.</param>
+        /// <param name="signInManager">The sign in manager.</param>
+        /// <param name="emailSender">The email sender.</param>
+        /// <param name="appSetting">The application setting.</param>
+        /// <param name="distributedCache">The distributed cache.</param>
+        public UserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, IOptions<AppSetting> appSetting, IDistributedCache distributedCache)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _emailSender = emailSender;
-            _distributedCache = distributedCache;
-            _appSettings = appSetting.Value;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.emailSender = emailSender;
+            this.distributedCache = distributedCache;
+            this.appSettings = appSetting.Value;
         }
 
+        /// <summary>
+        /// Registers the specified model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>returns message</returns>
+        /// <exception cref="Exception">system exception</exception>
         [HttpPost]
         [Route("registration")]
         public async Task<IActionResult> Register(RegistrationModel model)
@@ -42,92 +83,104 @@
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(ModelState);
+                    return this.BadRequest(this.ModelState);
                 }
+
                 var user = new ApplicationUser()
                 {
                     UserName = model.emailId,
-                    firstName = model.firstName,
-                    lastName = model.lastName,
+                    FirstName = model.firstName,
+                    LastName = model.lastName,
                     Email = model.emailId
                 };
 
-               var result = await _userManager.CreateAsync(user, model.password);
+               var result = await this.userManager.CreateAsync(user, model.password);
                 
-                return Ok(result);
+                return this.Ok(result);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            
         }
 
+        /// <summary>
+        /// Logins the specified model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>returns message</returns>
+        /// <exception cref="Exception">system exception</exception>
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(LoginModel model)
             {
             try
             {
-                var user = await _userManager.FindByEmailAsync(model.email);
-                if (user != null && await _userManager.CheckPasswordAsync(user, model.password))
+                var user = await this.userManager.FindByEmailAsync(model.Email);
+                if (user != null && await this.userManager.CheckPasswordAsync(user, model.Password))
                 {
                     var tokenDescriptor = new SecurityTokenDescriptor
                     {
                         Subject = new ClaimsIdentity(new Claim[]
                   {
-                       new Claim("UserID",user.Id.ToString())
+                       new Claim("UserID", user.Id.ToString())
                   }),
                         Expires = DateTime.UtcNow.AddDays(1),
-                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.secret)), SecurityAlgorithms.HmacSha256Signature)
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.appSettings.Secret)), SecurityAlgorithms.HmacSha256Signature)
                     };
                     var tokenHandler = new JwtSecurityTokenHandler();
                     var securityToken = tokenHandler.CreateToken(tokenDescriptor);
                     var cacheKey = "Token";
-                    var token = _distributedCache.GetString(cacheKey);
-                    if (!string.IsNullOrEmpty(token))
-                    {
-                        return Ok(new { token });
-                    }
+                    var token = this.distributedCache.GetString(cacheKey);
+                    ////if (!string.IsNullOrEmpty(token))
+                    ////{
+                    ////    return Ok(new { token });
+                    ////}
                     token = tokenHandler.WriteToken(securityToken);
-                    _distributedCache.SetString(cacheKey, token);
-                    return Ok(new { token });
-
+                    this.distributedCache.SetString(cacheKey, token);
+                    return this.Ok(new { token });
                 }
                 else
                 {
-                    return BadRequest();
+                    return this.BadRequest();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-            }
-           
+            }          
         }
 
+        /// <summary>
+        /// Logouts this instance.
+        /// </summary>
+        /// <returns>returns message</returns>
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
-            _distributedCache.Remove("Token");
-            return Ok();
+            await this.signInManager.SignOutAsync();
+            this.distributedCache.Remove("Token");
+            return this.Ok();
         }
 
+        /// <summary>
+        /// Forgets the password.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>returns the token</returns>
         [HttpPost]
         [Route("forgetpassword")]
         public async Task<bool> ForgetPassword(ForgetPasswordModel model)
-        {
-        
-                var user = await _userManager.FindByEmailAsync(model.email);
+        {       
+                var user = await this.userManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
                     return false;
                 }
-                // MailMessage class is present is System.Net.Mail namespace
-                MailMessage mailMessage = new MailMessage("patlollaparameshwarreddy7@gmail.com", model.email);
+                //// MailMessage class is present is System.Net.Mail namespace
+                MailMessage mailMessage = new MailMessage("patlollaparameshwarreddy7@gmail.com", model.Email);
                 Guid guid = Guid.NewGuid();
-                // StringBuilder class is present in System.Text namespace
+                //// StringBuilder class is present in System.Text namespace
                 StringBuilder sbEmailBody = new StringBuilder();
                 sbEmailBody.Append("Dear " + ",<br/><br/>");
                 sbEmailBody.Append("Please click on the following link to reset your password");
@@ -151,9 +204,6 @@
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(mailMessage);
             return true;
-
         }
-
     }
-
 }

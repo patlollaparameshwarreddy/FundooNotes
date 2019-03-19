@@ -1,42 +1,75 @@
-﻿namespace FundooNotes.Controllers
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="NotesController.cs" company="Bridgelabz">
+//   Copyright © 2018 Company
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+namespace FundooNotes.Controllers
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using FundooData.Model;
     using FundooNotes.DataContext;
-    using FundooNotes.model;
+    using FundooNotes.Model;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    /// <summary>
+    /// this is the controller class
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/[controller]")]
     [ApiController]
     public class NotesController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private ApplicationDbContext _context;
+        /// <summary>
+        /// The user manager
+        /// </summary>
+        private readonly UserManager<ApplicationUser> userManager;
+
+        /// <summary>
+        /// The context
+        /// </summary>
+        private ApplicationDbContext context;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotesController"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="userManager">The user manager.</param>
         public NotesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            _userManager = userManager;
-            _context = context;
+            this.userManager = userManager;
+            this.context = context;
         }
 
+        /// <summary>
+        /// Adds the notes.
+        /// </summary>
+        /// <param name="notesModel">The notes model.</param>
         [HttpPost]
         [Route("addnotes")]
         public void AddNotes([FromBody] NotesModel notesModel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user = new NotesModel()
                 {
+                    Email = notesModel.Email,
                     Title = notesModel.Title,
-                    TakeANote = notesModel.TakeANote
+                    TakeANote = notesModel.TakeANote,
+                    IsPin = notesModel.IsPin,
+                    IsArchive = notesModel.IsArchive,
+                    IsTrash = notesModel.IsTrash,
+                    ColorCode = notesModel.ColorCode,
+                    ImageUrl = notesModel.ImageUrl,
+                    Reminder = notesModel.Reminder
                 };
                 int result = 0;
                 try
                 {
-                    _context.notes.Add(user);
-                    result = _context.SaveChanges();
+                    this.context.Notes.Add(user);
+                    result = this.context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -45,11 +78,16 @@
             }
         }
 
+        /// <summary>
+        /// Updates the notes.
+        /// </summary>
+        /// <param name="notesModel">The notes model.</param>
+        /// <param name="id">The identifier.</param>
         [HttpPost]
         [Route("updatenotes/{id}")]
-        public void UpdateNotes([FromBody] NotesModel notesModel,string id)
+        public void UpdateNotes([FromBody] NotesModel notesModel, string id)
         {
-            NotesModel tableModel = _context.notes.Where<NotesModel>(t => t.Id.Equals(id)).First();
+            NotesModel tableModel = this.context.Notes.Where<NotesModel>(t => t.Id.Equals(id)).First();
             tableModel.Title = notesModel.Title;
             tableModel.TakeANote = notesModel.TakeANote;
             tableModel.IsPin = notesModel.IsPin;
@@ -61,7 +99,7 @@
             int result = 0;
             try
             {
-                result = _context.SaveChanges();
+                result = this.context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -69,21 +107,45 @@
             }
         }
 
-        [HttpDelete("DeleteNotes/{ID}")]
+        /// <summary>
+        /// Deletes the notes.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        [HttpDelete("DeleteNotes/{id}")]
         public void DeleteNotes(string id)
         {
-            var note = _context.notes.Where<NotesModel>(t => t.Id.Equals(id)).First();
+            var note = this.context.Notes.Where<NotesModel>(t => t.Id.Equals(id)).First();
 
             int result = 0;
             try
             {
-                _context.notes.Remove(note);
-                result = _context.SaveChanges();
+                this.context.Notes.Remove(note);
+                result = this.context.SaveChanges();
             }
             catch (Exception e)
             {
                 e.ToString();
             }
+        }
+
+        /// <summary>
+        /// Gets the notes.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns>the object</returns>
+        [HttpGet("GetNotes/{email}")]
+        public object GetNotes(string email)
+        {
+            var list = new List<NotesModel>();
+            GetNotesData data = new GetNotesData();
+            var notesData = from notes in this.context.Notes where notes.Email == email select notes;
+            foreach (var item in notesData)
+            {
+                list.Add(item);
+            }
+
+            data.notesData = list;
+            return data;
         }
     }
 }
