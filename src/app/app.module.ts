@@ -20,7 +20,8 @@ import {MatIconModule,} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {NgxToggleModule} from "ngx-toggle";
 import { TakenoteComponent } from './takenote/takenote.component';
-
+import { NotesComponent } from './notes/notes.component';
+import {MatMenuModule} from '@angular/material/menu';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { TakenoteComponent } from './takenote/takenote.component';
     ForgetpasswordComponent,
     ResetpasswordComponent,
     TakenoteComponent,
+    NotesComponent,
 
    
   ],
@@ -46,10 +48,8 @@ import { TakenoteComponent } from './takenote/takenote.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    NgxToggleModule
-   
-  
-
+    NgxToggleModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

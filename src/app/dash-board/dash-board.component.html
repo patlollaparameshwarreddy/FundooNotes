@@ -10,23 +10,24 @@
     <div>
     <h1 class="example-app-name">Fundoo</h1>
     </div>
-    <div fxFlexOffset='30' fxFlexOffset.md='20' fxFlexOffset.sm='8' fxFlexOffset.xs='5' fxHide.xs='true'>
-    <div fxFlex="60" class = "search">
-    <mat-form-field appearance="outline" fxHide.xs [style.fontSize.px]="2" class="search" div fxLayout="row" fxLayoutAlign="space-between stretch">
+    <div  fxFlex="60"  class = "search" fxFlexOffset='20' fxFlexOffset.md='10' fxFlexOffset.sm='5' fxFlexOffset.xs='2' fxHide.xs='true'>
+    <div fxFlex="60"  >
+    <mat-form-field fxFlex='100' appearance="outline" fxHide.xs [style.fontSize.px]="2" class="search" div fxLayout="row">
     <button mat-icon-button class="search-button">
     <mat-icon matTooltip="Search">search</mat-icon>
     </button>
-    <input fxFlex="90" [(ngModel)]="value" (keyup)="onKeyUp($event)" matInput placeholder="Search"
+    
+    <input  class="search" fxFlex="90" [(ngModel)]="value"  matInput placeholder="Search"
     [style.fontSize.px]="16" class="search-window" autocomplete="off">
     </mat-form-field>
     </div>
     </div>
-    <div fxFlexOffset=10 >
-    <img src="../../assets/img/download.svg">
-    </div>
     <div fxFlex fxLayout='row' fxLayoutAlign="end center" >
     <div > 
-    <button mat-mini-fab color='disabled'>Basic</button>
+    <button mat-mini-fab [matMenuTriggerFor]="menu" color='disabled'>Basic</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="signout()" routerLink="/login" >sign out</button>   
+      </mat-menu>
     </div>   
     </div>
     </div>
@@ -38,7 +39,7 @@
     [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
     <mat-nav-list>
     <div>
-    <a mat-list-item routerLink="." >
+    <a mat-list-item routerLink="./" >
     <i class="material-icons">notifications</i>Notes </a>
     </div>
      <div>
@@ -64,6 +65,10 @@
     </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
+        <router-outlet>
+
+        </router-outlet>
+
     </mat-sidenav-content>
     </mat-sidenav-container>
     </div>

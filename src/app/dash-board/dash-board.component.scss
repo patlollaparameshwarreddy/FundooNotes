@@ -29,7 +29,11 @@
     `<body>` to be our scrolling element for mobile layouts. */
     flex: 1 0 auto;
     }
-.search{
-    width: 100%;
-}
+// .search{
+//     min-width: 600px;
     
+// }
+    
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper{
+width: -webkit-fill-available;
+} 

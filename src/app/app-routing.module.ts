@@ -7,6 +7,7 @@ import { DashBoardComponent } from './dash-board/dash-board.component';
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { TakenoteComponent } from './takenote/takenote.component';
+import { NotesComponent } from './notes/notes.component';
 
 const routes: Routes = [
   {
@@ -20,7 +21,18 @@ const routes: Routes = [
   },
   {
     path:'dashboard',
-    component:DashBoardComponent
+    component:DashBoardComponent,
+    children:[
+      {
+        path:'',
+        redirectTo:'note',
+        pathMatch:'full'
+      },
+      {
+        path:'note',
+       component:NotesComponent
+      }
+    ]
   },
   {
     path:'forgetpassword',
