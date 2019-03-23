@@ -11,21 +11,21 @@ import * as jwt_decode from "jwt-decode";
 export class DisplaynotesComponent implements OnInit {
   constructor(private notes:NotesService) { }
 
-  token:any;
-  payLoad : any;
-  card = [];
-   array:[]
+  // token:any;
+  // payLoad : any;
+  // card = [];
+  //  array:[]
   ngOnInit() {
-  this.token = localStorage.getItem('token')
-   this.payLoad = jwt_decode(this.token)
-   console.log(this.payLoad);
-   this.getnotes();
+  // this.token = localStorage.getItem('token')
+  //  this.payLoad = jwt_decode(this.token)
+  //  console.log(this.payLoad);
+  //  this.getnotes();
   }
-  getnotes()
-  {
-    this.notes.getNotes(this.payLoad.UserID).subscribe((data: any) => {
-     this.card = data;
-     console.log(this.card);
-    })
-  }
+  // getnotes()
+  // {
+  //   this.notes.getNotes(this.payLoad.UserID).subscribe((data: any) => {
+  //    this.card = data;
+  //    console.log(this.card);
+  //   })
+  // }
 }

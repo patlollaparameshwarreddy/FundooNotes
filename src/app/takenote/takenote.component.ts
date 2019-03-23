@@ -13,14 +13,17 @@ export class TakenoteComponent implements OnInit {
   constructor(private service : NotesService) { }
   title = new FormControl('', [Validators.required, Validators.required]);
   TakeANote = new FormControl('', [Validators.required, Validators.required]);
-  notes: any;
   token:any;
-  payLoad : any
+  payLoad : any;
+  cards : any;
+
+
   ngOnInit() {
   this.token = localStorage.getItem('token')
    this.payLoad = this.getDecodedAccessToken(this.token)
-   console.log(this.payLoad);
-   console.log(this.payLoad.UserID)
+  //  console.log(this.payLoad);
+  //  console.log(this.payLoad.UserID)
+  this.getallnotes();
   }
 
   getDecodedAccessToken(token:string):any
@@ -41,16 +44,25 @@ export class TakenoteComponent implements OnInit {
     }
     console.log(data);
     this.service.AddNotes(data).subscribe(data=>{
-      // this.service.getNotes(this.payLoad.UserID).subscribe((data: any) => {
-      //   console.log('data: ', data.noteData);
-      //   this.notes = data.notesData;
-      //   console.log(this.notes);
-      // });
+
     },err=>{
       console.log(err);
       
     })
 
+  }
+
+  getallnotes()
+  {
+    this.service.getNotes(this.payLoad.UserID).subscribe(data =>{
+      this.cards=data["notesData"];
+      console.log(this.cards);
+
+    },err=>{
+      console.log(err);
+      
+
+    })
   }
 
 }

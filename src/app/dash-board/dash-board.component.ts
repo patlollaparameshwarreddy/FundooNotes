@@ -28,6 +28,6 @@ this.mobileQuery.removeListener(this._mobileQueryListener);
 }
 signout()
 {
- 
+ localStorage.clear();
 }
 }

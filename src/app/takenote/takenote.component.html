@@ -45,21 +45,16 @@
     </div>  
 
 <!-- diaplay notes -->
-    <!-- <div class="notesDisplay">
-        <div *ngFor="let note of notes">
-          <mat-card class="cardDisplay" *ngIf="note.isArchive!=1 && note.isPin==0 && note.isTrash==0">
+    <div class="notesDisplay">
+        <div *ngFor="let note of cards">
+          <mat-card fxLayoutGap="20px" >
             
-            <div *ngIf="note.imageUrl!=null">
-              <img src="{{note.imageUrl}}" style="margin-left: -24px;width: 268px;margin-top: -63px;" />
-            </div>
-  
             <div>
               <mat-card-title class="title-pin" style="width:75%">
-                {{note.Title}}
+                {{note.title}}
               </mat-card-title>
-  
             </div>
-            <mat-card-content >{{note.description}}</mat-card-content>
+            <mat-card-content >{{note.takeANote}}</mat-card-content>
         </mat-card>
         </div>
-      </div> -->
+      </div>

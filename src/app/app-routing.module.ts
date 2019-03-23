@@ -9,6 +9,7 @@ import { ResetpasswordComponent } from './resetpassword/resetpassword.component'
 import { TakenoteComponent } from './takenote/takenote.component';
 import { NotesComponent } from './notes/notes.component';
 import { DisplaynotesComponent } from './displaynotes/displaynotes.component';
+import { AuthGuard } from '../app/auth.guard'
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
   {
     path:'dashboard',
     component:DashBoardComponent,
+    canActivate: [AuthGuard],
     children:[
       {
         path:'',
