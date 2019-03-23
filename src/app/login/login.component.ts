@@ -22,8 +22,9 @@ password=new FormControl('',[Validators.required]);
     "password":this.password.value
     }
     this.service.loginPostRequest('login',user).subscribe((data:any) =>{
-      localStorage.setItem('Email', this.email.value);
+      // localStorage.setItem('Email', this.email.value);
       console.log(data);
+      localStorage.setItem('token', data.token);
      
         this.router.navigate(['dashboard']);
         

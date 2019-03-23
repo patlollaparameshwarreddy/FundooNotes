@@ -21,23 +21,45 @@
   
   </div>
   
-  <div *ngIf="isOpen"  class="addNote"  [ngStyle]="{'backgroundColor': color}">
+  <div *ngIf="isOpen"  class="addNote" >
   
     <div class="addNoteInputDiv">
   
-      <textarea [ngStyle]="{'backgroundColor': color}" class="addNoteTitleInput" [formControl]="title"  placeholder="Title"><strong>{{hello}}</strong></textarea>
+      <textarea  class="addNoteTitleInput" [formControl]="title"  placeholder="Title"><strong>{{hello}}</strong></textarea>
   
      
       <button class="pinIcon" (click)=changePin()>
 
       </button>
       <label></label>
-      <textarea [ngStyle]="{'backgroundColor': color}" class="addNoteInput" [formControl]="description" placeholder="Take a note..." ></textarea>
+      <textarea class="addNoteInput" [formControl]="TakeANote" placeholder="Take a note..." ></textarea>
   
     </div>
-    
+    <div>
+      <!-- <span><app-iconlistn></app-iconlistn></span> -->
+    </div>
     <div class="addNoteControlIcon"  >
       <button mat-button  (click)="AddNotes()"style="left:5cm">close </button>
     </div>
  
     </div>  
+
+<!-- diaplay notes -->
+    <!-- <div class="notesDisplay">
+        <div *ngFor="let note of notes">
+          <mat-card class="cardDisplay" *ngIf="note.isArchive!=1 && note.isPin==0 && note.isTrash==0">
+            
+            <div *ngIf="note.imageUrl!=null">
+              <img src="{{note.imageUrl}}" style="margin-left: -24px;width: 268px;margin-top: -63px;" />
+            </div>
+  
+            <div>
+              <mat-card-title class="title-pin" style="width:75%">
+                {{note.Title}}
+              </mat-card-title>
+  
+            </div>
+            <mat-card-content >{{note.description}}</mat-card-content>
+        </mat-card>
+        </div>
+      </div> -->

@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import {MatInputModule} from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatTableModule, MatFormFieldModule } from '@angular/material';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatToolbarModule, MatToolbarRow} from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -22,6 +22,8 @@ import {NgxToggleModule} from "ngx-toggle";
 import { TakenoteComponent } from './takenote/takenote.component';
 import { NotesComponent } from './notes/notes.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { IconlistComponent } from './iconlist/iconlist.component';
+import { DisplaynotesComponent } from './displaynotes/displaynotes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,8 @@ import {MatMenuModule} from '@angular/material/menu';
     ResetpasswordComponent,
     TakenoteComponent,
     NotesComponent,
-
+    IconlistComponent,
+    DisplaynotesComponent,
    
   ],
   imports: [
@@ -49,7 +52,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatIconModule,
     MatListModule,
     NgxToggleModule,
-    MatMenuModule
+    MatMenuModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

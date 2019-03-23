@@ -8,6 +8,7 @@ import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.compone
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { TakenoteComponent } from './takenote/takenote.component';
 import { NotesComponent } from './notes/notes.component';
+import { DisplaynotesComponent } from './displaynotes/displaynotes.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
   {
     path :'Registration', component : RegistrationComponent
   },
+ 
   {
     path:'dashboard',
     component:DashBoardComponent,
@@ -31,7 +33,11 @@ const routes: Routes = [
       {
         path:'note',
        component:NotesComponent
-      }
+      },
+      {
+        path:'displaynotes',
+        component: DisplaynotesComponent
+      },
     ]
   },
   {
