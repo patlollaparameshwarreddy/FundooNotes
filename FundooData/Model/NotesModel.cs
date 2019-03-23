@@ -3,6 +3,8 @@
 //   Copyright © 2018 Company
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+using System;
+
 namespace FundooData.Model
 {
     /// <summary>
@@ -10,6 +12,9 @@ namespace FundooData.Model
     /// </summary>
     public class NotesModel
     {
+
+        public Guid userId { get; set; }
+
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>

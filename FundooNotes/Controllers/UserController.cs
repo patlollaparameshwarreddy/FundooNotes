@@ -130,12 +130,8 @@ namespace FundooNotes.Controllers
                     };
                     var tokenHandler = new JwtSecurityTokenHandler();
                     var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-                    var cacheKey = "Token";
+                    var cacheKey = model.Email;
                     var token = this.distributedCache.GetString(cacheKey);
-                    ////if (!string.IsNullOrEmpty(token))
-                    ////{
-                    ////    return Ok(new { token });
-                    ////}
                     token = tokenHandler.WriteToken(securityToken);
                     this.distributedCache.SetString(cacheKey, token);
                     return this.Ok(new { token });

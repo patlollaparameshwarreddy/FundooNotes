@@ -48,14 +48,13 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <param name="notesModel">The notes model.</param>
         [HttpPost]
-        [Route("addnotes")]
-        public void AddNotes([FromBody] NotesModel notesModel)
+        public void AddNotes(NotesModel notesModel)
         {
             if (ModelState.IsValid)
             {
                 var user = new NotesModel()
                 {
-                    Email = notesModel.Email,
+                    userId = notesModel.userId,
                     Title = notesModel.Title,
                     TakeANote = notesModel.TakeANote,
                     IsPin = notesModel.IsPin,
@@ -83,8 +82,7 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <param name="notesModel">The notes model.</param>
         /// <param name="id">The identifier.</param>
-        [HttpPost]
-        [Route("updatenotes/{id}")]
+        [HttpPut("notes/{id}")]
         public void UpdateNotes([FromBody] NotesModel notesModel, string id)
         {
             NotesModel tableModel = this.context.Notes.Where<NotesModel>(t => t.Id.Equals(id)).First();
@@ -111,8 +109,8 @@ namespace FundooNotes.Controllers
         /// Deletes the notes.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        [HttpDelete("DeleteNotes/{id}")]
-        public void DeleteNotes(string id)
+        [HttpDelete]
+        public void DeleteNotes(int id)
         {
             var note = this.context.Notes.Where<NotesModel>(t => t.Id.Equals(id)).First();
 
@@ -133,12 +131,12 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <param name="email">The email.</param>
         /// <returns>the object</returns>
-        [HttpGet("GetNotes/{email}")]
-        public object GetNotes(string email)
+        [HttpGet]
+        public object GetNotes(Guid userId)
         {
             var list = new List<NotesModel>();
             GetNotesData data = new GetNotesData();
-            var notesData = from notes in this.context.Notes where notes.Email == email select notes;
+            var notesData = from notes in this.context.Notes where notes.userId == userId select notes;
             foreach (var item in notesData)
             {
                 list.Add(item);
