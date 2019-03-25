@@ -27,4 +27,8 @@ deleteNote(id){
   return this.http.delete(this.link + id);
 }
 
+loggedIn()
+{
+  return !!localStorage.getItem('token')
+}
 }

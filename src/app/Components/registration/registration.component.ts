@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, RequiredValidator } from '@angular/forms';
-import {AppService  } from "../app.service";
+import { AppService } from 'src/app/services/UserServices/app.service';
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',

@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { RegistrationComponent } from './registration/registration.component';
-import { DashBoardComponent } from './dash-board/dash-board.component';
-import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
-import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
-import { TakenoteComponent } from './takenote/takenote.component';
-import { NotesComponent } from './notes/notes.component';
-import { DisplaynotesComponent } from './displaynotes/displaynotes.component';
+import { RegistrationComponent } from '../app/Components/registration/registration.component';
+import { ForgetpasswordComponent } from '../app/Components/forgetpassword/forgetpassword.component';
 import { AuthGuard } from '../app/auth.guard'
+import { DashBoardComponent } from './Components/dash-board/dash-board.component';
+import { DisplaynotesComponent } from './Components/displaynotes/displaynotes.component';
+import { LoginComponent } from './Components/login/login.component';
+import { NotesComponent } from './Components/notes/notes.component';
+import { ResetpasswordComponent } from './Components/resetpassword/resetpassword.component';
+import { IconlistComponent } from './Components/iconlist/iconlist.component';
+import { NoteDialogComponent } from './Components/note-dialog/note-dialog.component';
 
 const routes: Routes = [
   {
@@ -51,8 +52,12 @@ const routes: Routes = [
     component:ResetpasswordComponent,
   },
   {
-    path:'takenote',
-    component:TakenoteComponent,
+    path:'iconlist',
+    component:IconlistComponent
+  },
+  {
+    path:'note-dialog',
+    component:NoteDialogComponent
   }
 ];
 

@@ -2,28 +2,30 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import {MatInputModule} from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatTableModule, MatFormFieldModule } from '@angular/material';
 import {MatToolbarModule, MatToolbarRow} from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { RegistrationComponent } from './registration/registration.component';
+import { RegistrationComponent } from '../app/Components/registration/registration.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DashBoardComponent } from './dash-board/dash-board.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
-import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { ForgetpasswordComponent } from '../app/Components/forgetpassword/forgetpassword.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule,} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {NgxToggleModule} from "ngx-toggle";
-import { TakenoteComponent } from './takenote/takenote.component';
-import { NotesComponent } from './notes/notes.component';
 import {MatMenuModule} from '@angular/material/menu';
-import { IconlistComponent } from './iconlist/iconlist.component';
-import { DisplaynotesComponent } from './displaynotes/displaynotes.component';
+import { AuthGuard } from './auth.guard';
+import { DashBoardComponent } from './Components/dash-board/dash-board.component';
+import { DisplaynotesComponent } from './Components/displaynotes/displaynotes.component';
+import { LoginComponent } from './Components/login/login.component';
+import { IconlistComponent } from './Components/iconlist/iconlist.component';
+import { NotesComponent } from './Components/notes/notes.component';
+import { ResetpasswordComponent } from './Components/resetpassword/resetpassword.component';
+import { TakenoteComponent } from './Components/takenote/takenote.component';
+import { NoteDialogComponent } from './Components/note-dialog/note-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +38,7 @@ import { DisplaynotesComponent } from './displaynotes/displaynotes.component';
     NotesComponent,
     IconlistComponent,
     DisplaynotesComponent,
+    NoteDialogComponent,
    
   ],
   imports: [
@@ -55,7 +58,7 @@ import { DisplaynotesComponent } from './displaynotes/displaynotes.component';
     MatMenuModule,
     
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

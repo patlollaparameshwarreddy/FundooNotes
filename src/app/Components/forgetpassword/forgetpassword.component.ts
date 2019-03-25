@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import {ForgetpasswordService} from '.././services/forgetpassword.service'
+import { ForgetpasswordService } from 'src/app/services/UserServices/forgetpassword.service';
+
 
 @Component({
   selector: 'app-forgetpassword',

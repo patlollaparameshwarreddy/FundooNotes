@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import {SignoutService } from '../services/signout.service'
+import { SignoutService } from 'src/app/services/UserServices/signout.service';
 
 @Component({
   selector: 'app-dash-board',
