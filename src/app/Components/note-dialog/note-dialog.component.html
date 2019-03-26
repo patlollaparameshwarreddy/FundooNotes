@@ -1,3 +1,11 @@
-<p (click)="onNoClick()">
-  note-dialog works!
-</p>
+<div class ="card">
+<div>
+  <input mat-input placeholder="Title" class="dialog" [(ngModel)]="this.data.notes.title">
+</div>
+<div>
+  <input mat-input  class="dialog"  [(ngModel)] = "this.data.notes.takeANote">
+</div>
+<mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">Close</button>
+</mat-dialog-actions>
+</div>

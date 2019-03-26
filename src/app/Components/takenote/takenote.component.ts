@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import * as jwt_decode from "jwt-decode";
 import { NotesService } from 'src/app/services/NotesServices/notes.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 
 @Component({
   selector: 'app-takenote',
@@ -12,7 +10,7 @@ import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 })
 export class TakenoteComponent implements OnInit {
 
-  constructor(private service : NotesService,public dialog: MatDialog) { }
+  constructor(private service : NotesService) { }
   title = new FormControl('', [Validators.required, Validators.required]);
   TakeANote = new FormControl('', [Validators.required, Validators.required]);
   token:any;
@@ -23,9 +21,6 @@ export class TakenoteComponent implements OnInit {
   ngOnInit() {
   this.token = localStorage.getItem('token')
    this.payLoad = this.getDecodedAccessToken(this.token)
-  //  console.log(this.payLoad);
-  //  console.log(this.payLoad.UserID)
-  this.getallnotes();
   }
 
   getDecodedAccessToken(token:string):any
@@ -56,30 +51,5 @@ export class TakenoteComponent implements OnInit {
   }
 
   }
-
-  getallnotes()
-  {
-    this.service.getNotes(this.payLoad.UserID).subscribe(data =>{
-      this.cards=data["notesData"];
-      console.log(this.cards);
-
-    },err=>{
-      console.log(err);
-      
-
-    })
-  }
-  noteDialog(note){
-    
-      const dialogRef = this.dialog.open(NoteDialogComponent, {
-        width: '250px',
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
-    
-  
-  }
-  }
+}
 

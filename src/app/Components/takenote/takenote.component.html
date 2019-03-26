@@ -43,17 +43,3 @@
     </div>
  
     </div>  
-
-<!-- diaplay notes -->
-    <div class="notesDisplay">
-        <div *ngFor="let note of cards">
-          <mat-card fxLayoutGap="20px" class="cardDisplay" (click)="noteDialog(note)">
-            
-            <div>
-              <mat-card-title class="titleinput" >{{note.title}}</mat-card-title>
-            </div>
-            <mat-card-content class="noteinput " >{{note.takeANote}}</mat-card-content>
-            <app-iconlist></app-iconlist>
-        </mat-card>
-        </div>
-      </div>

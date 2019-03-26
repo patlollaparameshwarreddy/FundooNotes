@@ -31,4 +31,11 @@ loggedIn()
 {
   return !!localStorage.getItem('token')
 }
+
+ updateNotes(result)
+ {
+   console.log(this.link,'notes' + result.id )
+   return this.http.put(this.link,'notes' + result.id );
+   
+ }
 }

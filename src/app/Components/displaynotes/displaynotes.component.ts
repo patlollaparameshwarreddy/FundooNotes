@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as jwt_decode from "jwt-decode";
 import { NotesService } from 'src/app/services/NotesServices/notes.service';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 
 
 @Component({
@@ -9,24 +11,43 @@ import { NotesService } from 'src/app/services/NotesServices/notes.service';
   styleUrls: ['./displaynotes.component.scss']
   
 })
-export class DisplaynotesComponent implements OnInit {
-  constructor(private notes:NotesService) { }
+export class DisplaynotesComponent implements OnInit 
+{
+  token:any;
+  payLoad : any;
+  cards : any;
 
-  // token:any;
-  // payLoad : any;
-  // card = [];
-  //  array:[]
+
+  constructor(private notes:NotesService, private dialog: MatDialog) { }
+
   ngOnInit() {
-  // this.token = localStorage.getItem('token')
-  //  this.payLoad = jwt_decode(this.token)
-  //  console.log(this.payLoad);
-  //  this.getnotes();
+  this.token = localStorage.getItem('token')
+   this.payLoad =  jwt_decode(this.token)
+  this.getallnotes();
   }
-  // getnotes()
-  // {
-  //   this.notes.getNotes(this.payLoad.UserID).subscribe((data: any) => {
-  //    this.card = data;
-  //    console.log(this.card);
-  //   })
-  // }
-}
+  getallnotes()
+  {
+    this.notes.getNotes(this.payLoad.UserID).subscribe(data =>{
+      this.cards=data["notesData"];
+      console.log(this.cards);
+
+    },err=>{
+      console.log(err);
+      
+    })
+  }
+
+  openDialog(note) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = "some data";
+    let dialogRef = this.dialog.open(NoteDialogComponent,{
+      maxWidth:'auto',
+      height:'auto',
+      data:{note:note, notes:note.title, des:note.TakeANote}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+      console.log(result);
+      })
+    }
+  }
