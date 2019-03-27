@@ -43,11 +43,16 @@ export class DisplaynotesComponent implements OnInit
     let dialogRef = this.dialog.open(NoteDialogComponent,{
       maxWidth:'auto',
       height:'auto',
-      data:{note:note, notes:note.title, des:note.TakeANote}
+      data:{note}
     });
     dialogRef.afterClosed().subscribe(result => {
-
       console.log(result);
+      this.notes.updateNotes(result).subscribe(data =>{
+        console.log(data);
+      },err=>{
+        console.log(err);
+      })
       })
     }
   }
+  

@@ -11,6 +11,7 @@ import { NotesComponent } from './Components/notes/notes.component';
 import { ResetpasswordComponent } from './Components/resetpassword/resetpassword.component';
 import { IconlistComponent } from './Components/iconlist/iconlist.component';
 import { NoteDialogComponent } from './Components/note-dialog/note-dialog.component';
+import { ArchiveComponent } from './Components/archive/archive.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
         path:'displaynotes',
         component: DisplaynotesComponent
       },
+      {
+        path : 'archivenotes',
+        component: ArchiveComponent
+      }
     ]
   },
   {

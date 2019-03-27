@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { MatCard } from '@angular/material';
+import { NotesService } from 'src/app/services/NotesServices/notes.service';
 
 @Component({
   selector: 'app-iconlist',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./iconlist.component.scss']
 })
 export class IconlistComponent implements OnInit {
-
-  constructor() { }
-
+  getColor
+  constructor(private notes:NotesService) { }
+  @Input() card;
   ngOnInit() {
+    console.log(this.card,"in consoli")
   }
+  setcolor(color: any,card) {
+    console.log(card,"card")
+    card.color = color;
+    card.colorCode = card.color;
+    this.notes.updateNotes(card).subscribe(data =>{
+      console.log(data);
+    },err=>{
+      console.log(err);
+    })
 
+  
+  }
 }

@@ -26,6 +26,7 @@ import { NotesComponent } from './Components/notes/notes.component';
 import { ResetpasswordComponent } from './Components/resetpassword/resetpassword.component';
 import { TakenoteComponent } from './Components/takenote/takenote.component';
 import { NoteDialogComponent } from './Components/note-dialog/note-dialog.component';
+import { ArchiveComponent } from './Components/archive/archive.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { NoteDialogComponent } from './Components/note-dialog/note-dialog.compon
     IconlistComponent,
     DisplaynotesComponent,
     NoteDialogComponent,
+    ArchiveComponent,
    
   ],
   imports: [

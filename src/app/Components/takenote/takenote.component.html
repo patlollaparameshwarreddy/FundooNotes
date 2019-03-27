@@ -35,11 +35,12 @@
       <textarea class="addNoteInput" [formControl]="TakeANote" placeholder="Take a note..." ></textarea>
   
     </div>
-    <div>
-      <!-- <span><app-iconlistn></app-iconlistn></span> -->
-    </div>
+    <div fxLayout='row' >
+      <app-iconlist ></app-iconlist>
+    
     <div class="addNoteControlIcon"  >
-      <button mat-button  (click)="AddNotes()"style="left:5cm">close </button>
+      <button mat-button  (click)="AddNotes()" (click)="isOpen=false" style="left:5cm">close </button>
     </div>
+  </div>
  
     </div>  

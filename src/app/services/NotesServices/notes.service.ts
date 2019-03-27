@@ -35,7 +35,6 @@ loggedIn()
  updateNotes(result)
  {
    console.log(this.link,'notes' + result.id )
-   return this.http.put(this.link,'notes' + result.id );
-   
+   return this.http.put('https://localhost:44360/api/notes/notes/' + result.id, result );
  }
 }
