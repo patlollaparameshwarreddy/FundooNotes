@@ -12,7 +12,7 @@ export class IconlistComponent implements OnInit {
   constructor(private notes:NotesService) { }
   @Input() card;
   ngOnInit() {
-    console.log(this.card,"in consoli")
+    // console.log(this.card,"in consoli")
   }
   setcolor(color: any,card) {
     console.log(card,"card")
@@ -23,7 +23,29 @@ export class IconlistComponent implements OnInit {
     },err=>{
       console.log(err);
     })
+  }
 
-  
+  setArchive(card)
+  {
+    card.setArchive = true;
+    card.isArchive = card.setArchive;
+    console.log(card);
+    this.notes.updateNotes(card).subscribe(data =>{
+      console.log(data);
+    },err=>{
+      console.log(err);
+    })
+  }
+
+  doUnArchive(card)
+  {
+    card.setArchive = false;
+    card.isArchive = card.setArchive;
+    console.log(card);
+    this.notes.updateNotes(card).subscribe(data =>{
+      console.log(data);
+    },err=>{
+      console.log(err);
+    })
   }
 }

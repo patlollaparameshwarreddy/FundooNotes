@@ -12,8 +12,12 @@
     <i class="material-icons">photo</i>
   </button>
 
-  <button mat-icon-button>
-    <i class="material-icons">archive </i>
+  <button mat-icon-button *ngIf='card.isArchive==false' matTooltip="Archive" (click)="setArchive(card)">
+      <mat-icon class="mat-18">archive</mat-icon>
+  </button>
+
+  <button mat-icon-button *ngIf='card.isArchive==true' matTooltip="Archive" (click)="doUnArchive(card)">
+      <mat-icon class="mat-18">unarchive</mat-icon>
   </button>
 
   <button mat-icon-button  [matMenuTriggerFor]="menu">

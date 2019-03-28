@@ -1,6 +1,6 @@
 <!-- diaplay notes -->
 <div class="notesDisplay" >
-    <div *ngFor="let note of cards" >
+    <div *ngFor="let note of noteCards">
       <div  >
       <mat-card fxLayoutGap="20px" class="cardDisplay" [style.background-color]=note.colorCode >
         <div (click) = "openDialog(note)">
@@ -8,7 +8,6 @@
           <mat-card-title class="titleinput" >{{note.title}}</mat-card-title>
         </div>
         <mat-card-content class="noteinput " >{{note.takeANote}}</mat-card-content>
-       
       </div>
       <div> 
           <app-iconlist [card]='note'></app-iconlist>
