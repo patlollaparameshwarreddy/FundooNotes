@@ -83,9 +83,9 @@ namespace FundooNotes.Controllers
         /// <param name="notesModel">The notes model.</param>
         /// <param name="id">The identifier.</param>
         [HttpPut("notes/{id}")]
-        public void UpdateNotes([FromBody] NotesModel notesModel, string id)
+        public void UpdateNotes([FromBody] NotesModel notesModel, int id)
         {
-            NotesModel tableModel = this.context.Notes.Where<NotesModel>(t => t.Id.Equals(id)).First();
+            NotesModel tableModel = this.context.Notes.Where<NotesModel>(t => t.Id == id).FirstOrDefault();
             tableModel.Title = notesModel.Title;
             tableModel.TakeANote = notesModel.TakeANote;
             tableModel.IsPin = notesModel.IsPin;
@@ -136,7 +136,7 @@ namespace FundooNotes.Controllers
         {
             var list = new List<NotesModel>();
             GetNotesData data = new GetNotesData();
-            var notesData = from notes in this.context.Notes where notes.userId == userId select notes;
+            var notesData = from notes in this.context.Notes where notes.userId == userId orderby notes.Id descending select notes;
             foreach (var item in notesData)
             {
                 list.Add(item);
