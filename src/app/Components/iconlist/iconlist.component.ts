@@ -48,4 +48,35 @@ export class IconlistComponent implements OnInit {
       console.log(err);
     })
   }
+
+  DeleteNote(card)
+  {
+    card.delete = true;
+    card.IsTrash = card.delete;
+    this.notes.updateNotes(card).subscribe(data =>{
+      console.log(data);
+    },err =>{
+      console.log(err);
+    })
+  }
+
+  DeleteForever(card)
+  {
+    this.notes.deleteNote(card).subscribe(data => {
+      console.log(data);
+    },err =>{
+      console.log(err);
+    })
+  }
+
+  Restore(card)
+  {
+    card.delete = false;
+    card.IsTrash = card.delete;
+    this.notes.updateNotes(card).subscribe(data =>{
+      console.log(data);
+    },err =>{
+      console.log(err);
+    })
+  }
 }

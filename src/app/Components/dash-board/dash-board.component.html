@@ -8,7 +8,7 @@
     <img src="../../assets/keep_48dp.png">
     </div>
     <div>
-    <h1 class="example-app-name">Fundoo</h1>
+    <h1 class="example-app-name">{{headName}}</h1>
     </div>
     <div  fxFlex="60"  class = "search" fxFlexOffset='20' fxFlexOffset.md='10' fxFlexOffset.sm='5' fxFlexOffset.xs='2' fxHide.xs='true'>
     <div fxFlex="60"  >
@@ -32,18 +32,18 @@
     </div>
     </div>
     </mat-toolbar>
-  
-    <mat-sidenav-container class="example-sidenav-container"
+    
+    <mat-sidenav-container class="example-sidenav-container" 
     [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
-    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" #snav mode="side" opened class="example-sidenav" style="width:260px"> 
     <mat-nav-list>
     <div>
-    <a amat-list-item routerLink= "." >
+    <a mat-button  routerLink= "." >
     <i class="material-icons">lightbulb_outline</i>Notes </a>
     </div>
      <div>
-    <a mat-list-item routerLink="." >
+    <a mat-button (click)="headName='Reminders'" routerLink="/dashboard/reminder" >
     <i class="material-icons">notifications</i>Reminder </a>
     </div>
     <mat-divider></mat-divider>
@@ -53,13 +53,13 @@
     </div>
     <mat-divider></mat-divider>
     <div>
-            <a mat-button routerLink="/dashboard/archivenotes">
+            <a mat-button (click)="headName='Archive'" routerLink="/dashboard/archivenotes">
                     <i class="material-icons">archive</i>Archive
             </a>
     </div>
     <div>
-            <a mat-list-item routerLink=".">
-                    <i class="material-icons"> delete </i> Delete
+            <a mat-button (click)="headName='Trash'" routerLink="/dashboard/trash">
+                    <i class="material-icons"> delete </i> Trash
             </a>
     </div>
     </mat-nav-list>

@@ -1,18 +1,1 @@
-<!-- <div class="notesDisplay" >
-    <div *ngFor="let note of archiveCards">
-      <div  >
-      <mat-card fxLayoutGap="20px" class="cardDisplay" [style.background-color]=note.colorCode >
-        <div (click) = "openDialog(note)">
-        <div>
-          <mat-card-title class="titleinput" >{{note.title}}</mat-card-title>
-        </div>
-        <mat-card-content class="noteinput " >{{note.takeANote}}</mat-card-content>
-      </div>
-      <div> 
-          <app-iconlist [card]='note'></app-iconlist>
-          </div>
-        </mat-card>
-      </div>
-    </div>
-  </div> -->
-  <app-displaynotes [noteCards]='archiveCards'></app-displaynotes>
+<app-displaynotes [noteCards]='archiveCards'></app-displaynotes>

@@ -25,15 +25,13 @@
     .example-is-mobile .example-sidenav-container {
     flex: 1 0 auto;
     }
-// .search{
-//     min-width: 600px;
-    
-// }
     
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper{
 width: -webkit-fill-available;
 } 
 
-// .example-sidenav-container{
-//     width : 245px;
-// }
+.example-sidenav {
+    background-color: #ffffff;
+    padding: 20px;
+    width: 300px;
+  }

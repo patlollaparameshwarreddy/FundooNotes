@@ -9,6 +9,7 @@ import { SignoutService } from 'src/app/services/UserServices/signout.service';
 })
 export class DashBoardComponent  implements OnDestroy{
 // tslint:disable-next-line: variable-name
+headName = "fundooNotes";
 private _mobileQueryListener: () => void;
 mobileQuery: MediaQueryList;
 shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));

@@ -23,8 +23,12 @@ export class NotesService {
   } });
 }
 
-deleteNote(id){
-  return this.http.delete(this.link + id);
+deleteNote(result){
+  return this.http.delete(this.link,
+    { params:{
+      id:result.id
+    }
+    });
 }
 
 loggedIn()
@@ -36,5 +40,12 @@ loggedIn()
  {
    console.log(this.link,'notes' + result.id )
    return this.http.put('https://localhost:44360/api/notes/notes/' + result.id, result );
+ }
+
+ archiveNotes(userId){
+  return this.http.get(this.link + '/' + 'archive',
+   { params:{
+    userId:userId
+  } });
  }
 }

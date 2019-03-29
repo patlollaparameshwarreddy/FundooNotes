@@ -22,29 +22,29 @@ export class DisplaynotesComponent implements OnInit
   ngOnInit() {
   this.token = localStorage.getItem('token')
    this.payLoad =  jwt_decode(this.token)
-  this.getallnotes();
+  // this.getallnotes();
   console.log(this.cards);
   }
-  getallnotes()
-  {
-    this.notes.getNotes(this.payLoad.UserID).subscribe(data =>{
-      this.cards=data["notesData"];
-      this.cards.forEach(element => {
-        if(element.isArchive){
-          return;
-        }
-        else
-        this.noteCards.push(element);
+  // getallnotes()
+  // {
+  //   this.notes.getNotes(this.payLoad.UserID).subscribe(data =>{
+  //     this.cards=data["notesData"];
+  //     this.cards.forEach(element => {
+  //       if(element.isArchive || element.isTrash){
+  //         return;
+  //       }
+  //       else
+  //       this.noteCards.push(element);
 
         
-      });
-      console.log(this.cards);
+  //     });
+  //     console.log(this.cards);
 
-    },err=>{
-      console.log(err);
+  //   },err=>{
+  //     console.log(err);
       
-    })
-  }
+  //   })
+  // }
 
   openDialog(note) {
     const dialogConfig = new MatDialogConfig();

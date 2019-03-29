@@ -21,16 +21,9 @@ decodedToken : any;
   }
   getAllArchivecards(){
     console.log("archive");
-    this.notes.getNotes(this.decodedToken.UserID).subscribe(data =>{
-      this.cards=data["notesData"];
-      this.cards.forEach(element => {
-        if(element.isArchive){
-          this.archiveCards.push(element);
-        }
-        else{
-          return;
-        }
-      });
+    this.notes.archiveNotes(this.decodedToken.UserID).subscribe(data =>{
+      this.archiveCards=data["notesData"];
+      console.log(this.archiveCards)
   })
 }
 }
