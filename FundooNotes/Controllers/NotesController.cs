@@ -112,7 +112,7 @@ namespace FundooNotes.Controllers
         [HttpDelete]
         public void DeleteNotes(int id)
         {
-            var note = this.context.Notes.Where<NotesModel>(t => t.Id.Equals(id)).First();
+            var note = this.context.Notes.Where<NotesModel>(t => t.Id.Equals(id)).FirstOrDefault();
 
             int result = 0;
             try
@@ -134,16 +134,47 @@ namespace FundooNotes.Controllers
         [HttpGet]
         public object GetNotes(Guid userId)
         {
-            var list = new List<NotesModel>();
-            GetNotesData data = new GetNotesData();
-            var notesData = from notes in this.context.Notes where notes.userId == userId orderby notes.Id descending select notes;
-            foreach (var item in notesData)
+            try
             {
-                list.Add(item);
-            }
+                var list = new List<NotesModel>();
+                GetNotesData data = new GetNotesData();
+                var notesData = from notes in this.context.Notes where notes.userId == userId orderby notes.Id descending select notes;
+                foreach (var item in notesData)
+                {
+                    list.Add(item);
+                }
 
-            data.notesData = list;
-            return data;
+                data.notesData = list;
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            
+        }
+
+        [HttpGet("archive")]
+        public object GetArchiveNotes(Guid userId)
+        {
+
+            try
+            {
+                var list = new List<NotesModel>();
+                GetNotesData data = new GetNotesData();
+                var notesData = from notes in this.context.Notes where (notes.userId == userId) && (notes.IsArchive == true) && (notes.IsTrash == false)  select notes;
+                foreach (var item in notesData)
+                {
+                    list.Add(item);
+                }
+
+                data.notesData = list;
+                return data;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
     }
 }

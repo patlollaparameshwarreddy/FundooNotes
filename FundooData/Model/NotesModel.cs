@@ -94,5 +94,8 @@ namespace FundooData.Model
         /// The reminder.
         /// </value>
         public string Reminder { get; set; }
+
+
+        public bool IsDelete { get; set; }
     }
 }
