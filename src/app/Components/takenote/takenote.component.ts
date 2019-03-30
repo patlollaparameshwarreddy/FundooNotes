@@ -16,6 +16,7 @@ export class TakenoteComponent implements OnInit {
   token:any;
   payLoad : any;
   cards : any;
+  bgcolor:any;
 
   DialogData=[];
   ngOnInit() {
@@ -31,13 +32,17 @@ export class TakenoteComponent implements OnInit {
       return null;
     }
   };
-  
+  setcolor($event){
+    console.log($event,"color")
+    this.bgcolor=$event
+  }
   AddNotes()
   {
     var data = {
       "title":this.title.value,
       "TakeANote":this.TakeANote.value,
-      "userId":this.payLoad.UserID
+      "userId":this.payLoad.UserID,
+      "colorCode":this.bgcolor
     }
     console.log(data);
     if(data.title != "" || data.TakeANote != "")

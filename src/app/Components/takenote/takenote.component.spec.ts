@@ -12,7 +12,7 @@ describe('TakenoteComponent', () => {
     })
     .compileComponents();
   }));
-
+ 
   beforeEach(() => {
     fixture = TestBed.createComponent(TakenoteComponent);
     component = fixture.componentInstance;

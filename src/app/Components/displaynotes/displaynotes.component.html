@@ -1,18 +1,60 @@
 <!-- diaplay notes -->
-<div class="notesDisplay" >
-    <div *ngFor="let note of noteCards">
-      <div  >
-      <mat-card fxLayoutGap="20px" class="cardDisplay" [style.background-color]=note.colorCode >
-        <div (click) = "openDialog(note)">
-        <div>
-          <mat-card-title class="titleinput" >{{note.title}}</mat-card-title>
-        </div>
-        <mat-card-content class="noteinput " >{{note.takeANote}}</mat-card-content>
-      </div>
-      <div> 
-          <app-iconlist [card]='note'></app-iconlist>
+<div class="notesDisplay">
+  <div *ngFor="let note of noteCards">
+    <div>  
+      <mat-card *ngIf = "note.isPin == true && note.isArchive == false" fxLayoutGap="20px" class="cardDisplay" [style.background-color]=note.colorCode>
+        <div (click)="openDialog(note)">           
+          <div>
+            <mat-card-title class="titleinput">{{note.title}}</mat-card-title>
           </div>
-        </mat-card>
-      </div>
+          <mat-card-content class="noteinput ">{{note.takeANote}}</mat-card-content>
+        </div>
+        <div>
+          <div *ngIf="cond=='trash'">
+            <button mat-icon-button  [matMenuTriggerFor]="trashmenu">
+                <mat-icon >more_vert</mat-icon>
+              </button>
+              <mat-menu #trashmenu="matMenu">
+                  <button mat-menu-item (click)="DeleteForever(note)">Delete forever</button>
+                  <button mat-menu-item (click)="Restore(note)">Restore</button>
+                </mat-menu>
+          </div>
+          <div *ngIf='cond!="trash"'>
+            <app-iconlist [card]='note' [type]='type'></app-iconlist>
+          </div>
+        </div>
+      </mat-card>
     </div>
   </div>
+</div>
+    <!-- unpin -->
+    <div class="notesDisplay">
+        <div *ngFor="let note of noteCards" >
+          <div >
+            <mat-card  *ngIf = "note.isPin == false" fxLayoutGap="20px" class="cardDisplay" [style.background-color]=note.colorCode>
+              <div (click)="openDialog(note)">
+                <div>
+                  <mat-card-title class="titleinput">{{note.title}}</mat-card-title>
+                </div>
+                <mat-card-content class="noteinput ">{{note.takeANote}}</mat-card-content>
+              </div>
+              <div>
+                <div *ngIf="cond=='trash'">
+                  <button mat-icon-button  [matMenuTriggerFor]="trashmenu">
+                      <mat-icon >more_vert</mat-icon>
+                    </button>
+                    <mat-menu #trashmenu="matMenu">
+                        <button mat-menu-item (click)="DeleteForever(note)">Delete forever</button>
+                        <button mat-menu-item (click)="Restore(note)">Restore</button>
+                      </mat-menu>
+                </div>
+                <div *ngIf='cond!="trash"'>
+                  <app-iconlist [card]='note' [type]='type'></app-iconlist>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+
+    <!-- unpin -->

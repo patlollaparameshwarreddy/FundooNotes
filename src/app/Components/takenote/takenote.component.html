@@ -21,28 +21,24 @@
   
   </div>
   
-  <div *ngIf="isOpen"  class="addNote" >
-  
+  <div *ngIf="isOpen"  class="addNote" [style.background-color]=bgcolor>
     <div class="addNoteInputDiv">
   
-      <textarea  class="addNoteTitleInput" [formControl]="title"  placeholder="Title"><strong>{{hello}}</strong></textarea>
+      <textarea  class="addNoteTitleInput" [style.background-color]=bgcolor [formControl]="title"  placeholder="Title"><strong>{{hello}}</strong></textarea>
   
      
       <button class="pinIcon" (click)=changePin()>
 
       </button>
       <label></label>
-      <textarea class="addNoteInput" [formControl]="TakeANote" placeholder="Take a note..." ></textarea>
+      <textarea class="addNoteInput" [style.background-color]=bgcolor [formControl]="TakeANote" placeholder="Take a note..." ></textarea>
   
     </div>
-    <div fxLayout='row' >
-      <app-iconlist>
-        jklhj
-      </app-iconlist>
-    
+    <div fxLayout='row'>
+      
+      <div><app-iconlist (setcolortoNote)="setcolor($event)"></app-iconlist></div>
     <div class="addNoteControlIcon"  >
       <button mat-button  (click)="AddNotes()" (click)="isOpen=false" style="left:5cm">close </button>
     </div>
   </div>
- 
     </div>  

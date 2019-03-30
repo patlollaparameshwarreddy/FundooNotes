@@ -12,6 +12,7 @@ export class TrashComponent implements OnInit {
   trashCards=[];
   token:any;
   decodedToken : any;
+  trash='trash'
   constructor(private notes:NotesService) { }
 
   ngOnInit() {

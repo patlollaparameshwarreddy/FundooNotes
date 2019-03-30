@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { MatCard } from '@angular/material';
 import { NotesService } from 'src/app/services/NotesServices/notes.service';
+import { EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-iconlist',
@@ -11,10 +13,16 @@ export class IconlistComponent implements OnInit {
   getColor
   constructor(private notes:NotesService) { }
   @Input() card;
+  @Input() type;
+  @Output() setcolortoNote = new EventEmitter()
   ngOnInit() {
-    // console.log(this.card,"in consoli")
+    console.log(this.type,"in consoli")
   }
   setcolor(color: any,card) {
+    if(card==undefined){
+        this.setcolortoNote.emit(color)
+    }
+    else{
     console.log(card,"card")
     card.color = color;
     card.colorCode = card.color;
@@ -23,6 +31,7 @@ export class IconlistComponent implements OnInit {
     },err=>{
       console.log(err);
     })
+  }
   }
 
   setArchive(card)
@@ -52,26 +61,6 @@ export class IconlistComponent implements OnInit {
   DeleteNote(card)
   {
     card.delete = true;
-    card.IsTrash = card.delete;
-    this.notes.updateNotes(card).subscribe(data =>{
-      console.log(data);
-    },err =>{
-      console.log(err);
-    })
-  }
-
-  DeleteForever(card)
-  {
-    this.notes.deleteNote(card).subscribe(data => {
-      console.log(data);
-    },err =>{
-      console.log(err);
-    })
-  }
-
-  Restore(card)
-  {
-    card.delete = false;
     card.IsTrash = card.delete;
     this.notes.updateNotes(card).subscribe(data =>{
       console.log(data);

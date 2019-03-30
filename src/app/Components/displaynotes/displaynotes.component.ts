@@ -3,6 +3,7 @@ import * as jwt_decode from "jwt-decode";
 import { NotesService } from 'src/app/services/NotesServices/notes.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
+import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/render3/view/util';
 
 
 @Component({
@@ -17,6 +18,9 @@ export class DisplaynotesComponent implements OnInit
   payLoad : any;
   cards : any;
   @Input() noteCards=[];
+  @Input() type;
+  
+  @Input() cond;
   constructor(private notes:NotesService, private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -63,5 +67,27 @@ export class DisplaynotesComponent implements OnInit
       })
       })
     }
+
+  DeleteForever(note)
+  {
+    console.log(note, "dfdsffsf");
+    this.notes.deleteNote(note).subscribe(data => {
+      console.log(note);
+    },err =>{
+      console.log(err);
+    })
   }
+
+  Restore(card)
+  {
+    card.delete = false;
+    card.IsTrash = card.delete;
+    this.notes.updateNotes(card).subscribe(data =>{
+      console.log(data);
+    },err =>{
+      console.log(err);
+    })
+  }
+  }
+
   

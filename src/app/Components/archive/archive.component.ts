@@ -10,6 +10,7 @@ import * as jwt_decode from "jwt-decode";
 export class ArchiveComponent implements OnInit {
 cards;
 archiveCards=[];
+archive='archive'
 token:any;
 decodedToken : any;
   constructor(private notes:NotesService) { }

@@ -1,11 +1,18 @@
-<div class ="card" >
+<div class ="card" [style.background-color]=this.data.notes.colorCode>
 <div>
-  <input mat-input placeholder="Title" class="dialog" [(ngModel)]="this.data.notes.title" >
+  <textarea [style.background-color]=this.data.notes.colorCode placeholder="Title" class="dialog" [(ngModel)]="this.data.notes.title" ></textarea>
 </div>
 <div>
-  <input mat-input  class="dialog"  [(ngModel)] = "this.data.notes.takeANote">
+  <textarea [style.background-color]=this.data.notes.colorCode  class="dialog"  [(ngModel)] = "this.data.notes.takeANote"></textarea>
 </div>
-<mat-dialog-actions>
-    <button class="mat-raised-button" (click)="close()">Close</button>
-</mat-dialog-actions>
+<div fxLayout='row' fxLayoutAlign="space-around center">
+  <div>
+<app-iconlist  [card]='this.data.notes'></app-iconlist>
+  </div>
+  <div>
+      <mat-dialog-actions>
+          <button [style.background-color]=this.data.notes.colorCode class="mat-raised-button" (click)="close()">Close</button>
+      </mat-dialog-actions>
+  </div>
+</div>
 </div>

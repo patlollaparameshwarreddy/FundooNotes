@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
   styleUrls: ['./note-dialog.component.scss']
 })
 export class NoteDialogComponent implements OnInit {
+  bgcolor: any;
 
   constructor( public dialogRef: MatDialogRef<NoteDialogComponent>,
      @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -18,5 +19,5 @@ export class NoteDialogComponent implements OnInit {
   close() {
     this.dialogRef.close(this.data.notes);
   }
-
+  
 }
