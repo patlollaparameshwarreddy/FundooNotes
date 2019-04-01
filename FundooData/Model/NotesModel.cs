@@ -96,6 +96,5 @@ namespace FundooData.Model
         public string Reminder { get; set; }
 
 
-        public bool IsDelete { get; set; }
     }
 }

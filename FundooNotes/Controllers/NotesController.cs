@@ -85,24 +85,31 @@ namespace FundooNotes.Controllers
         [HttpPut("notes/{id}")]
         public void UpdateNotes([FromBody] NotesModel notesModel, int id)
         {
-            NotesModel tableModel = this.context.Notes.Where<NotesModel>(t => t.Id == id).FirstOrDefault();
-            tableModel.Title = notesModel.Title;
-            tableModel.TakeANote = notesModel.TakeANote;
-            tableModel.IsPin = notesModel.IsPin;
-            tableModel.IsArchive = notesModel.IsArchive;
-            tableModel.IsTrash = notesModel.IsTrash;
-            tableModel.ColorCode = notesModel.ColorCode;
-            tableModel.ImageUrl = notesModel.ImageUrl;
-            tableModel.Reminder = tableModel.Reminder;
-            int result = 0;
             try
             {
-                result = this.context.SaveChanges();
+                NotesModel tableModel = this.context.Notes.Where<NotesModel>(t => t.Id == id).FirstOrDefault();
+                tableModel.Title = notesModel.Title;
+                tableModel.TakeANote = notesModel.TakeANote;
+                tableModel.IsPin = notesModel.IsPin;
+                tableModel.IsArchive = notesModel.IsArchive;
+                tableModel.IsTrash = notesModel.IsTrash;
+                tableModel.ColorCode = notesModel.ColorCode;
+                tableModel.ImageUrl = notesModel.ImageUrl;
+                tableModel.Reminder = tableModel.Reminder;
+                int result = 0;
+                try
+                {
+                    result = this.context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    e.ToString();
+                }
             }
             catch (Exception e)
             {
                 e.ToString();
-            }
+            }            
         }
 
         /// <summary>
@@ -176,5 +183,33 @@ namespace FundooNotes.Controllers
                 return ex.Message;
             }
         }
+
+        [HttpPost]
+        [Route("addlabels")]
+        public void AddLabels([FromBody] LabelsModel newLabel)
+        {
+            var label = new LabelsModel()
+            {
+                UserId = newLabel.UserId,
+                Labels = newLabel.Labels
+            };
+            int result = 0;
+            try
+            {
+                this.context.labels.Add(label);
+                result = this.context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                 ex.ToString();
+            }
+        }
+
+        //[HttpGet]
+        //[Route("getlabels")]
+        //public object GetLabels(Guid UserId)
+        //{
+            
+        //} 
     }
 }
