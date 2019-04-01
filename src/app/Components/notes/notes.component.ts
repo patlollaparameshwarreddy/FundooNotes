@@ -12,6 +12,12 @@ export class NotesComponent implements OnInit {
   payLoad : any;
   cards : any;
   noteCards = [];
+
+  // cards: any = [];
+  wrap:string="wrap";
+  direction
+  view
+  layout
   constructor(private notes:NotesService) { }
 
   ngOnInit() {
@@ -19,6 +25,13 @@ export class NotesComponent implements OnInit {
     this.payLoad =  jwt_decode(this.token)
    this.getallnotes();
    console.log(this.cards);
+
+   this.notes.getView().subscribe((res:any)=>{
+    // debugger
+      this.view = res;
+      this.direction = this.view.data;
+      this.layout = this.direction + " " + this.wrap;
+  });
   }
 
   getallnotes()

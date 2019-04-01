@@ -29,6 +29,7 @@ import { NoteDialogComponent } from './Components/note-dialog/note-dialog.compon
 import { ArchiveComponent } from './Components/archive/archive.component';
 import { TrashComponent } from './Components/trash/trash.component';
 import { ReminderComponent } from './Components/reminder/reminder.component';
+import { LabelsDialogComponent } from './Components/labels-dialog/labels-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +46,7 @@ import { ReminderComponent } from './Components/reminder/reminder.component';
     ArchiveComponent,
     TrashComponent,
     ReminderComponent,
+    LabelsDialogComponent,
    
   ],
   imports: [

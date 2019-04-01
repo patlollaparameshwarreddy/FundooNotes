@@ -70,7 +70,7 @@ export class DisplaynotesComponent implements OnInit
 
   DeleteForever(note)
   {
-    console.log(note, "dfdsffsf");
+    
     this.notes.deleteNote(note).subscribe(data => {
       console.log(note);
     },err =>{
@@ -89,5 +89,3 @@ export class DisplaynotesComponent implements OnInit
     })
   }
   }
-
-  

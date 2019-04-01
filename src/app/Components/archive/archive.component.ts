@@ -13,12 +13,23 @@ archiveCards=[];
 archive='archive'
 token:any;
 decodedToken : any;
+wrap:string="wrap";
+  direction
+  view
+  layout
   constructor(private notes:NotesService) { }
 
   ngOnInit() {
     this.token = localStorage.getItem('token')
    this.decodedToken =  jwt_decode(this.token)
    this.getAllArchivecards()
+
+   this.notes.getView().subscribe((res:any)=>{
+    // debugger
+      this.view = res;
+      this.direction = this.view.data;
+      this.layout = this.direction + " " + this.wrap;
+  });
   }
   getAllArchivecards(){
     console.log("archive");

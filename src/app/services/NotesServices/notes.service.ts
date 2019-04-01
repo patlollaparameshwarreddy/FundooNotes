@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import {  HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class NotesService {
   Email: any = localStorage.getItem('Email');
   constructor(private http:HttpClient) { }
+  result:boolean = true;
+  subject = new Subject();
   link = 'https://localhost:44360/api/notes';
   
   AddNotes(data)
@@ -48,4 +51,19 @@ loggedIn()
     userId:userId
   } });
  }
+
+ getView() {
+  this.gridview();
+  return this.subject.asObservable();
+}
+gridview(){
+  if(this.result){
+    this.subject.next({data:"column"});
+    this.result = false;
+  }
+  else{
+    this.subject.next({data:"row"});
+    this.result = true;
+  }
+}
 }
