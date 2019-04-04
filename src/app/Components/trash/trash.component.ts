@@ -36,4 +36,8 @@ export class TrashComponent implements OnInit {
   })
 }
 
+DeletedNotes($event)
+{
+  this.getAllTrashcards()
+}
 }

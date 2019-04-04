@@ -20,7 +20,7 @@
                 </mat-menu>
           </div>
           <div *ngIf='cond!="trash"'>
-            <app-iconlist [card]='note' [type]='type'></app-iconlist>
+            <app-iconlist [card]='note' (update)='updateCome($event)' [type]='type'></app-iconlist>
           </div>
         </div>
       </mat-card>
@@ -49,7 +49,7 @@
                       </mat-menu>
                 </div>
                 <div *ngIf='cond!="trash"'>
-                  <app-iconlist [card]='note' [type]='type'></app-iconlist>
+                  <app-iconlist (update)='updateCome($event)' [card]='note' [type]='type'></app-iconlist>
                 </div>
               </div>
             </mat-card>

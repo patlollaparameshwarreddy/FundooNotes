@@ -14,6 +14,7 @@ export class IconlistComponent implements OnInit {
   constructor(private notes:NotesService) { }
   @Input() card;
   @Input() type;
+  @Output() update =new EventEmitter();
   @Output() setcolortoNote = new EventEmitter()
   ngOnInit() {
     console.log(this.type,"in consoli")
@@ -41,6 +42,7 @@ export class IconlistComponent implements OnInit {
     console.log(card);
     this.notes.updateNotes(card).subscribe(data =>{
       console.log(data);
+      this.update.emit({});
     },err=>{
       console.log(err);
     })
@@ -53,6 +55,7 @@ export class IconlistComponent implements OnInit {
     console.log(card);
     this.notes.updateNotes(card).subscribe(data =>{
       console.log(data);
+      this.update.emit({});
     },err=>{
       console.log(err);
     })
@@ -64,6 +67,7 @@ export class IconlistComponent implements OnInit {
     card.IsTrash = card.delete;
     this.notes.updateNotes(card).subscribe(data =>{
       console.log(data);
+      this.update.emit({});
     },err =>{
       console.log(err);
     })

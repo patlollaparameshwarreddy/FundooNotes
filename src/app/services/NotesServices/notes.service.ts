@@ -14,12 +14,10 @@ export class NotesService {
   
   AddNotes(data)
   {
-    console.log(data);
     return this.http.post(this.link, data);
   }
 
   getNotes(userId){
-    console.log(userId);
   return this.http.get(this.link,
    { params:{
     userId:userId
@@ -52,18 +50,32 @@ loggedIn()
   } });
  }
 
- getView() {
-  this.gridview();
-  return this.subject.asObservable();
-}
-gridview(){
-  if(this.result){
-    this.subject.next({data:"column"});
-    this.result = false;
+  getView() {
+    this.gridview();
+    return this.subject.asObservable();
   }
-  else{
-    this.subject.next({data:"row"});
-    this.result = true;
+  gridview(){
+    if(this.result){
+      this.subject.next({data:"column"});
+      this.result = false;
+    }
+    else{
+      this.subject.next({data:"row"});
+      this.result = true;
+    }
   }
-}
+
+  getlabels(userId){
+  return this.http.get(this.link + '/' + 'labels',
+  {
+    params:{
+      userId:userId
+    }
+  });
+  }
+
+  AddLabels(result)
+  {
+    return this.http.post(this.link + '/' + 'labels', result)
+  }
 }

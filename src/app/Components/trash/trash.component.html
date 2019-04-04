@@ -1,1 +1,1 @@
-<app-displaynotes [noteCards]='trashCards' [cond]='trash'></app-displaynotes>
+<app-displaynotes [noteCards]='trashCards' [cond]='trash' (cardUpdate)="DeletedNotes($event)"></app-displaynotes>

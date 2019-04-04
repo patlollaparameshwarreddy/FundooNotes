@@ -1,4 +1,4 @@
-<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+<div background-color="white" class="example-container" [class.example-is-mobile]="mobileQuery.matches">
     <mat-toolbar color="white" class="example-toolbar">
     <div fxLayout='row' fxFlex='100'>
     <div>
@@ -53,30 +53,41 @@
     <mat-sidenav-container class="example-sidenav-container" 
     [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
-    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" #snav mode="side" opened class="example-sidenav" style="width:260px"> 
+    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" #snav mode="side" opened class="example-sidenav" style="width:260px" style="border:0px;"> 
     <mat-nav-list>
     <div>
     <a mat-button  routerLink= "." >
-    <i class="material-icons">lightbulb_outline</i>Notes </a>
+    <i class="material-icons" style="padding-right: 25px">lightbulb_outline</i>Notes </a>
     </div>
      <div>
     <a mat-button (click)="headName='Reminders'" routerLink="/dashboard/reminder" >
-    <i class="material-icons">notifications</i>Reminder </a>
+    <i class="material-icons" style="padding-right: 25px">notifications</i>Reminder </a>
     </div>
     <mat-divider></mat-divider>
+    <!-- labels -->
+    <div *ngFor="let label of notesLabel">
+        <button mat-button class="sidebutton"  (click)="LabelRedirect(label)">
+          <div  fxLayout="row" >
+          <div class="imageopac">
+            <img src="../../../assets/outline-label-24px.svg" />
+          </div>
+          <div class="button-r" style="margin-left:32px">{{label.labels}}</div>
+        </div>
+        </button>
+      </div>
     <div>
     <a mat-button (click)="openDialog()">
-    <i class="material-icons"> edit </i>Edit Label </a>
+    <i class="material-icons" style="padding-right: 25px"> edit </i>Edit Label </a>
     </div>
     <mat-divider></mat-divider>
     <div>
             <a mat-button (click)="headName='Archive'" routerLink="/dashboard/archivenotes">
-                    <i class="material-icons">archive</i>Archive
+                    <i class="material-icons" style="padding-right: 25px">archive</i>Archive
             </a>
     </div>
     <div>
             <a mat-button (click)="headName='Trash'" routerLink="/dashboard/trash">
-                    <i class="material-icons"> delete </i> Trash
+                    <i class="material-icons" style="padding-right: 25px"> delete </i> Trash
             </a>
     </div>
     </mat-nav-list>

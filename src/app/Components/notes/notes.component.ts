@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import * as jwt_decode from "jwt-decode";
 import { NotesService } from 'src/app/services/NotesServices/notes.service';
 
@@ -12,6 +12,7 @@ export class NotesComponent implements OnInit {
   payLoad : any;
   cards : any;
   noteCards = [];
+
 
   // cards: any = [];
   wrap:string="wrap";
@@ -37,6 +38,7 @@ export class NotesComponent implements OnInit {
   getallnotes()
   {
     this.notes.getNotes(this.payLoad.UserID).subscribe(data =>{
+      this.noteCards=[];
       this.cards=data["notesData"];
       this.cards.forEach(element => {
         if(element.isArchive || element.isTrash){
@@ -54,4 +56,14 @@ export class NotesComponent implements OnInit {
       
     })
   }
+  update(value){
+    console.log(value,'event');
+    this.getallnotes();
+    
+  }
+  closed(value){
+    console.log(value,"from take note");
+    this.getallnotes();
+  }
+
 }

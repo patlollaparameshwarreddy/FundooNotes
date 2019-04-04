@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import * as jwt_decode from "jwt-decode";
 import { NotesService } from 'src/app/services/NotesServices/notes.service';
@@ -17,7 +17,7 @@ export class TakenoteComponent implements OnInit {
   payLoad : any;
   cards : any;
   bgcolor:any;
-
+  @Output() AferCloseEvent = new EventEmitter();
   DialogData=[];
   ngOnInit() {
   this.token = localStorage.getItem('token')
@@ -45,10 +45,12 @@ export class TakenoteComponent implements OnInit {
       "colorCode":this.bgcolor
     }
     console.log(data);
-    if(data.title != "" || data.TakeANote != "")
+    if(this.title.value != "" && this.title.value != null )
     {
     this.service.AddNotes(data).subscribe(data=>{
-
+      this.title.reset();
+      this.TakeANote.reset();
+      this.AferCloseEvent.emit({});
     },err=>{
       console.log(err);
       

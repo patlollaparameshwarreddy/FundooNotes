@@ -38,5 +38,9 @@ wrap:string="wrap";
       console.log(this.archiveCards)
   })
 }
+
+Archived($event){
+  this.getAllArchivecards();
+}
 }
 

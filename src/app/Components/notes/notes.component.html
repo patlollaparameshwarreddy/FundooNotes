@@ -1,2 +1,2 @@
-<app-takenote></app-takenote>
-<app-displaynotes [noteCards]='noteCards'  fxLayout="{{layout}}" fxLayout="row wrap" ></app-displaynotes>
+<app-takenote (AferCloseEvent)="closed($event)"></app-takenote>
+<app-displaynotes   (cardUpdate)="update($event)" [noteCards]='noteCards'  fxLayout="{{layout}}" fxLayout="row wrap" ></app-displaynotes>

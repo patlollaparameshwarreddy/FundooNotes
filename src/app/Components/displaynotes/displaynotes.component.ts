@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as jwt_decode from "jwt-decode";
 import { NotesService } from 'src/app/services/NotesServices/notes.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
@@ -19,6 +19,7 @@ export class DisplaynotesComponent implements OnInit
   cards : any;
   @Input() noteCards=[];
   @Input() type;
+@Output() cardUpdate=new EventEmitter();
   
   @Input() cond;
   constructor(private notes:NotesService, private dialog: MatDialog) { }
@@ -73,6 +74,7 @@ export class DisplaynotesComponent implements OnInit
     
     this.notes.deleteNote(note).subscribe(data => {
       console.log(note);
+      this.cardUpdate.emit({})
     },err =>{
       console.log(err);
     })
@@ -84,8 +86,13 @@ export class DisplaynotesComponent implements OnInit
     card.IsTrash = card.delete;
     this.notes.updateNotes(card).subscribe(data =>{
       console.log(data);
+      this.cardUpdate.emit({})
     },err =>{
       console.log(err);
     })
   }
+  updateCome(value){
+this.cardUpdate.emit({});
+  }
+
   }
