@@ -185,7 +185,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPost]
-        [Route("addlabels")]
+        [Route("labels")]
         public void AddLabels([FromBody] LabelsModel newLabel)
         {
             var label = new LabelsModel()
@@ -205,11 +205,107 @@ namespace FundooNotes.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("getlabels")]
-        //public object GetLabels(Guid UserId)
-        //{
-            
-        //} 
+        [HttpGet]
+        [Route("labels")]
+        public object GetLabels(Guid UserId)
+        {
+            try
+            {
+                var list = new List<LabelsModel>();
+                GetNotesData data = new GetNotesData();
+                var labels = from t in this.context.labels where t.UserId == UserId select t;
+                foreach (var items in labels)
+                {
+                    list.Add(items);
+                }
+
+                return list;
+            }
+            catch(Exception ex)
+            {
+               return ex.Message.ToString();
+            }
+           
+        }
+
+        [HttpPut]
+        [Route("label/{id}")]
+        public string  UpdateLabels([FromBody] LabelsModel labelsModel, int id)
+        {
+            LabelsModel labels = context.labels.Where(t => t.Id == id).FirstOrDefault();
+            labels.Labels = labelsModel.Labels;
+            int result = 0;
+            try
+            {
+                result = this.context.SaveChanges();
+                return result.ToString();
+            }
+            catch(Exception ex)
+            {
+                return ex.Message.ToString();
+            }
+        }
+
+        [HttpDelete ]
+        [Route("label/{id}")]
+        public void DeleteLabel(int id)
+        {
+            LabelsModel label = context.labels.Where(t => t.Id == id).FirstOrDefault();
+            int result = 0;
+            try
+            {
+                this.context.labels.Remove(label);
+                result = context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+               ex.Message.ToString();
+            }
+        }
+
+        [HttpPost]
+        [Route("AddNotesLabel")]
+        public bool AddNotesLabel([FromBody]NotesLabelTable model)
+        {
+            var labelData = from t in context.notesLabels where t.UserId == model.UserId select t;
+            foreach(var datas in labelData.ToList())
+            {
+                if(datas.NoteId == model.NoteId && datas.LableId == model.LableId)
+                {
+                    return false;
+                }
+            }
+
+            var data = new NotesLabelTable
+            {
+                LableId = model.LableId,
+                NoteId = model.NoteId,
+                UserId = model.UserId
+            };
+            int result = 0;
+            context.notesLabels.Add(data);
+            result = context.SaveChanges();
+            return true;
+        }
+
+        [HttpGet]
+        [Route("GetNotesLabel/{UserId}")]
+        public List<NotesLabelTable> GetNotesLabel([FromBody]NotesLabelTable model)
+        {
+            var list = new List<NotesLabelTable>();
+            var Labeldata = from t in context.notesLabels where t.UserId == model.UserId select t;
+            try
+            {
+                foreach (var data in Labeldata)
+                {
+                    list.Add(data);
+                }
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+            }
+            return list;
+        }
     }
 }

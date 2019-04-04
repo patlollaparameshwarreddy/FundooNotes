@@ -7,17 +7,23 @@ namespace FundooNotes.Controllers
 {
     using System;
     using System.IdentityModel.Tokens.Jwt;
+    using System.IO;
     using System.Net.Mail;
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using FundooNotes.Model;
+    using Microsoft.AspNetCore.Http;
+    using System.Net.Http.Headers;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Distributed;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
+    using Microsoft.AspNetCore.Hosting;
 
     /// <summary>
     /// user controller class
@@ -52,6 +58,8 @@ namespace FundooNotes.Controllers
         /// </summary>
         private readonly AppSetting appSettings;
 
+        private IHostingEnvironment _hostingEnvironment;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UserController"/> class.
         /// </summary>
@@ -60,13 +68,14 @@ namespace FundooNotes.Controllers
         /// <param name="emailSender">The email sender.</param>
         /// <param name="appSetting">The application setting.</param>
         /// <param name="distributedCache">The distributed cache.</param>
-        public UserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, IOptions<AppSetting> appSetting, IDistributedCache distributedCache)
+        public UserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, IOptions<AppSetting> appSetting, IDistributedCache distributedCache, IHostingEnvironment hostingEnvironment)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.emailSender = emailSender;
             this.distributedCache = distributedCache;
             this.appSettings = appSetting.Value;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         /// <summary>
@@ -201,5 +210,23 @@ namespace FundooNotes.Controllers
                 smtpClient.Send(mailMessage);
             return true;
         }
+
+        [HttpPost]
+        [Route("profile")]
+        public ImageUploadResult Upload(IFormFile Files)
+        {
+            var stream = Files.OpenReadStream();
+            var name = Files.FileName;
+            CloudinaryDotNet.Account account = new CloudinaryDotNet.Account("dekmrle72", "699555858957497", "LJIgvOlD9bDG5XvT9fLkIco_sZg");
+
+            CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(name, stream)
+            };
+            var uploadResult = cloudinary.Upload(uploadParams);
+            return uploadResult;
+        }
     }
 }
+ 

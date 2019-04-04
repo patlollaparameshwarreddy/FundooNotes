@@ -54,5 +54,13 @@ namespace FundooNotes.DataContext
         /// The labels.
         /// </value>
         public DbSet<LabelsModel> labels { get; set; }
+
+        /// <summary>
+        /// Gets or sets the notes labels.
+        /// </summary>
+        /// <value>
+        /// The notes labels.
+        /// </value>
+        public DbSet<NotesLabelTable> notesLabels { get; set; }
     }
 }
