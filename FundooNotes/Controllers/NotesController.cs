@@ -144,14 +144,21 @@ namespace FundooNotes.Controllers
             try
             {
                 var list = new List<NotesModel>();
+                var labels = new List<LabelsModel>();
                 GetNotesData data = new GetNotesData();
                 var notesData = from notes in this.context.Notes where notes.userId == userId orderby notes.Id descending select notes;
                 foreach (var item in notesData)
                 {
                     list.Add(item);
                 }
+                var Label = from t in context.labels where t.UserId == userId select t;
+                foreach (var lbl in Label)
+                {
+                    labels.Add(lbl);
+                }
 
                 data.notesData = list;
+                data.labelsData = labels;
                 return data;
             }
             catch (Exception ex)
@@ -264,7 +271,7 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPost]
-        [Route("AddNotesLabel")]
+        [Route("NotesLabel")]
         public bool AddNotesLabel([FromBody]NotesLabelTable model)
         {
             var labelData = from t in context.notesLabels where t.UserId == model.UserId select t;
@@ -289,11 +296,11 @@ namespace FundooNotes.Controllers
         }
 
         [HttpGet]
-        [Route("GetNotesLabel/{UserId}")]
-        public List<NotesLabelTable> GetNotesLabel([FromBody]NotesLabelTable model)
+        [Route("noteslabel")]
+        public List<NotesLabelTable> GetNotesLabel(Guid userId)
         {
             var list = new List<NotesLabelTable>();
-            var Labeldata = from t in context.notesLabels where t.UserId == model.UserId select t;
+            var Labeldata = from t in context.notesLabels where t.UserId == userId select t;
             try
             {
                 foreach (var data in Labeldata)
@@ -306,6 +313,23 @@ namespace FundooNotes.Controllers
                 e.ToString();
             }
             return list;
+        }
+
+        [HttpDelete]
+        [Route("noteslabel")]
+        public void DeleteNotesLabel(int id)
+        {
+            var label = context.notesLabels.Where<NotesLabelTable>(t => t.Id == id).First();
+            int result = 0;
+            try
+            {
+                context.notesLabels.Remove(label);
+                result = context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+            }
         }
     }
 }
