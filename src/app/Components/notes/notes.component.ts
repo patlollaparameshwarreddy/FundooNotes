@@ -40,6 +40,7 @@ export class NotesComponent implements OnInit {
     this.notes.getNotes(this.payLoad.UserID).subscribe(data =>{
       this.noteCards=[];
       this.cards=data["notesData"];
+      console.log(this.cards);
       this.cards.forEach(element => {
         if(element.isArchive || element.isTrash){
           return;

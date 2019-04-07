@@ -17,12 +17,31 @@ export class DisplaynotesComponent implements OnInit
   token:any;
   payLoad : any;
   cards : any;
+  allLabels:any;
+  notesLabels:any;
+  userId
   @Input() noteCards=[];
   @Input() type;
 @Output() cardUpdate=new EventEmitter();
   
   @Input() cond;
-  constructor(private notes:NotesService, private dialog: MatDialog) { }
+  constructor(private notes:NotesService, private dialog: MatDialog) { 
+    this.userId = localStorage.getItem("UserId")
+
+    this.notes.getlabels(this.userId).subscribe(responselabels => {
+      this.allLabels = responselabels;
+      console.log(this.allLabels,"all labels")
+    },err=>{
+      console.log(err);
+    })
+
+    this.notes. getNotesLabels(this.userId).subscribe(response =>{
+      this.notesLabels = response;
+      console.log(this.notesLabels,"notes labels")
+    },err=>{
+      console.log(err);
+    })
+  }
 
   ngOnInit() {
   this.token = localStorage.getItem('token')

@@ -30,6 +30,8 @@ import { ArchiveComponent } from './Components/archive/archive.component';
 import { TrashComponent } from './Components/trash/trash.component';
 import { ReminderComponent } from './Components/reminder/reminder.component';
 import { LabelsDialogComponent } from './Components/labels-dialog/labels-dialog.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatChipsModule} from '@angular/material/chips';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +67,8 @@ import { LabelsDialogComponent } from './Components/labels-dialog/labels-dialog.
     NgxToggleModule,
     MatMenuModule,
     MatDialogModule,
+    MatCheckboxModule,
+    MatChipsModule,
     
   ],
   providers: [AuthGuard],

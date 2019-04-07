@@ -78,4 +78,19 @@ loggedIn()
   {
     return this.http.post(this.link + '/' + 'labels', result)
   }
+
+  AddNotesLabels(notesLabel)
+  {
+    return this.http.post(this.link + '/' + 'NotesLabel', notesLabel)
+  }
+
+  getNotesLabels(userid)
+  {
+    return this.http.get(this.link +'/'+'noteslabel',
+    {
+      params:{
+        userId:userid
+      }
+    })
+  }
 }

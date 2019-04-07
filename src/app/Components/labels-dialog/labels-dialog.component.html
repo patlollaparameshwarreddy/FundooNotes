@@ -5,8 +5,10 @@
 </div>
 <mat-divider></mat-divider>
 <div *ngFor="let label of notesLabel">
-  <!-- {{label.labels}} -->
   <input mat-input [(ngModel)]=label.labels>
+  <!-- <button mat-icon-button>
+    class="material-icons">done</i>
+  </button> -->
 </div>
 <div mat-dialog-actions>
   <button class = "button" mat-button (click)='close()' cdkFocusInitial>Done</button>

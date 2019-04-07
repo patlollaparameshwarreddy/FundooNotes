@@ -30,11 +30,20 @@
 
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="DeleteNote(card)">Delete note</button>
-    <button mat-menu-item>Change lables</button>
+    <button mat-menu-item [matMenuTriggerFor]="Labelsmenu">Change lables</button>
     <button mat-menu-item>Add drawing</button>
     <button mat-menu-item>Make a copy</button>
     <button mat-menu-item>show checkboxes</button>
   </mat-menu>
+
+<mat-menu #Labelsmenu="matMenu">
+  <div *ngFor="let label of notesLabel" (click)="LabelList(label)">
+  <mat-checkbox  >
+      {{label.labels}}
+  </mat-checkbox>
+</div>
+
+</mat-menu>
 
   <mat-menu #colorMenu="matMenu" class="colorCard">
     <div class="colorDiv">
@@ -81,14 +90,3 @@
     </div>
   </mat-menu>
 </div>
-
-<!-- <div *ngIf='card.isTrash==true'> -->
-  <!-- <button mat-icon-button  [matMenuTriggerFor]="trashmenu">
-    <i class="material-icons">more_vert</i>
-  </button>
-
-  <mat-menu #trashmenu="matMenu">
-    <button mat-menu-item (click)="DeleteForever(card)">Delete forever</button>
-    <button mat-menu-item (click)="Restore(card)">Restore</button>
-  </mat-menu>
-</div> -->

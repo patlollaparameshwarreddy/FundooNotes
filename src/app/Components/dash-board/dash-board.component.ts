@@ -78,7 +78,7 @@ export class DashBoardComponent implements OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result,"dashhhhhhh");
+      console.log(result,"dash");
       if(result.labels != '' && result.labels != null)
       {
       this.notes.AddLabels(result).subscribe((data:any) => {

@@ -11,7 +11,17 @@ import { EventEmitter } from '@angular/core';
 })
 export class IconlistComponent implements OnInit {
   getColor
-  constructor(private notes:NotesService) { }
+  notesLabel: any;
+  userId:any;
+  constructor(private notes:NotesService) { 
+    this.userId = localStorage.getItem('UserId')
+    this.notes.getlabels(this.userId).subscribe(responselabels => {
+      this.notesLabel = responselabels;
+      console.log(this.notesLabel)
+    },err=>{
+      console.log(err);
+    })
+  }
   @Input() card;
   @Input() type;
   @Output() update =new EventEmitter();
@@ -71,5 +81,24 @@ export class IconlistComponent implements OnInit {
     },err =>{
       console.log(err);
     })
+  }
+
+  LabelList(label)
+  {
+    console.log(label.id);
+    console.log(this.card.id);
+    this.userId = localStorage.getItem('UserId')
+    var notesLabel = {
+      "LableId":label.id,
+      "NoteId":this.card.id,
+      "UserId":this.userId
+    }
+    console.log(notesLabel);
+    this.notes.AddNotesLabels(notesLabel).subscribe(data => {
+      console.log(data);
+    },err =>{
+      console.log(err);
+    }
+    )
   }
 }
