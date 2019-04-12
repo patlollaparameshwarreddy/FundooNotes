@@ -32,6 +32,7 @@ import { ReminderComponent } from './Components/reminder/reminder.component';
 import { LabelsDialogComponent } from './Components/labels-dialog/labels-dialog.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
+import { CollaboratordialogComponent } from './collaboratordialog/collaboratordialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +50,8 @@ import {MatChipsModule} from '@angular/material/chips';
     TrashComponent,
     ReminderComponent,
     LabelsDialogComponent,
+    CollaboratordialogComponent,
+
    
   ],
   imports: [

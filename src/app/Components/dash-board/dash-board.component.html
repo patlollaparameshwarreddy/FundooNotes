@@ -2,7 +2,7 @@
     <mat-toolbar color="white" class="example-toolbar">
     <div fxLayout='row' fxFlex='100'>
     <div>
-    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <button mat-icon-button (click)="snav.toggle()" style="outline:none"><mat-icon>menu</mat-icon></button>
     </div>
     <div>
     <img src="../../assets/keep_48dp.png">
@@ -13,7 +13,7 @@
     <div  fxFlex="60"  class = "search" fxFlexOffset='20' fxFlexOffset.md='10' fxFlexOffset.sm='5' fxFlexOffset.xs='2' fxHide.xs='true'>
     <div fxFlex="60"  >
     <mat-form-field fxFlex='100' appearance="outline" fxHide.xs [style.fontSize.px]="2" class="search" div fxLayout="row">
-    <button mat-icon-button class="search-button">
+    <button mat-icon-button class="search-button" style="outline:none">
     <mat-icon matTooltip="Search">search</mat-icon>
     </button>
     
@@ -41,8 +41,11 @@
   </button>
     <div fxFlex fxLayout='row' fxLayoutAlign="end center" >
     <div > 
-    <button mat-mini-fab [matMenuTriggerFor]="menu" color='disabled'>Basic</button>
+    <button mat-mini-fab [matMenuTriggerFor]="menu" color='disabled' style="outline:none" >Basic</button>
     <mat-menu #menu="matMenu">
+      <!-- <button inputType="file"></button> -->
+      <input type="file"  #file (change)="onFileChanged($event,note)"  id="selectedFile" >
+      <img class="logo" src="http://res.cloudinary.com/dekmrle72/image/upload/v1554729518/cyckcoixulo41q5il9qt.jpg">
         <button mat-menu-item (click)="signout()" routerLink="/login" >sign out</button>   
       </mat-menu>
     </div>   

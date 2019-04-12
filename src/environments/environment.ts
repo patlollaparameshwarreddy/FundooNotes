@@ -4,7 +4,14 @@
 
 export const environment = {
   production: false,
-  
+   firebase : {
+    apiKey: "AIzaSyDjYJRxNfXA1TfLFjudX9k6LygBGJQg3gM",
+    authDomain: "fundoonotifications.firebaseapp.com",
+    databaseURL: "https://fundoonotifications.firebaseio.com",
+    projectId: "fundoonotifications",
+    storageBucket: "fundoonotifications.appspot.com",
+    messagingSenderId: "1067607768713"
+  }
 };
 
 /*

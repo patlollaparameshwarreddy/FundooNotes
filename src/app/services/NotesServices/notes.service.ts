@@ -39,6 +39,7 @@ loggedIn()
 
  updateNotes(result)
  {
+   console.log(result,"resulttyuty")
    console.log(this.link,'notes' + result.id )
    return this.http.put('https://localhost:44360/api/notes/notes/' + result.id, result );
  }
@@ -93,4 +94,33 @@ loggedIn()
       }
     })
   }
+
+  updateLabel(id,label)
+  {
+    console.log(label,"ts")
+    return this.http.put(this.link + '/' + 'label' + '/' + id,
+    {
+      params:{
+        label:label
+      }
+    }
+    )
+  }
+
+  deleteNotelabel(lableid)
+  {
+    return this.http.delete(this.link+ '/' + 'noteslabel',
+    {
+      params:{
+        id:lableid
+      }
+    })
+  }
+
+  reminderNotes(userId){
+    return this.http.get(this.link + '/' + 'reminder',
+     { params:{
+      userId:userId
+    } });
+   }
 }

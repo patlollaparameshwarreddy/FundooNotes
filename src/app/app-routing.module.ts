@@ -15,6 +15,7 @@ import { ArchiveComponent } from './Components/archive/archive.component';
 import { TrashComponent } from './Components/trash/trash.component';
 import { ReminderComponent } from './Components/reminder/reminder.component';
 import { LabelsDialogComponent } from './Components/labels-dialog/labels-dialog.component';
+import { CollaboratordialogComponent } from './collaboratordialog/collaboratordialog.component';
 
 const routes: Routes = [
   {
@@ -69,6 +70,10 @@ const routes: Routes = [
         path:'label',
         component:LabelsDialogComponent
       },
+      {
+        path:'collaborator',
+        component:CollaboratordialogComponent
+      }
     ]
   },
   {

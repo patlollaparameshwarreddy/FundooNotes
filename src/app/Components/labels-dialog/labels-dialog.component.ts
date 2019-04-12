@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import * as jwt_decode from "jwt-decode";
+import { NotesService } from 'src/app/services/NotesServices/notes.service';
 
 @Component({
   selector: 'app-labels-dialog',
@@ -11,7 +12,7 @@ import * as jwt_decode from "jwt-decode";
 export class LabelsDialogComponent implements OnInit {
   notesLabel
   userId:any
-  constructor(public dialogRef: MatDialogRef<LabelsDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<LabelsDialogComponent>, private notes: NotesService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
     labels = new FormControl('');
@@ -27,6 +28,12 @@ export class LabelsDialogComponent implements OnInit {
     console.log(data);
     this.dialogRef.close(data);
   }
-
+  update(label)
+  {
+    console.log(label.labels,"jgkldfgkdf");
+    this.notes.updateLabel(label.id,label.labels).subscribe(result =>
+      console.log(result)
+      )
+  }
 
 }

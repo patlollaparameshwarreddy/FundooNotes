@@ -26,8 +26,10 @@ password=new FormControl('',[Validators.required]);
     }
     this.service.loginPostRequest('login',user).subscribe((data:any) =>{
       // localStorage.setItem('Email', this.email.value);
+      console.log(data.user.email,"email")
       console.log(data.token);
       localStorage.setItem('token', data.token);
+      localStorage.setItem('email',data.user.email),
       this.token = localStorage.getItem('token')
     this.payLoad =  jwt_decode(this.token)
     console.log( this.payLoad.UserID );

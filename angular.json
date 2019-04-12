@@ -91,6 +91,8 @@
             "scripts": [],
             "assets": [
               "src/favicon.ico",
+              "firebase-messaging-sw.js",
+              "mainfest.json",
               "src/assets"
             ]
           }

@@ -15,4 +15,14 @@ export class AppService {
   loginPostRequest(url,user){
     return this.http.post(this.link + url,user);
   }
+
+  profilepic(path,useid){
+    return this.http.post(this.link + 'profile/' + useid,
+    {
+      params:
+      {
+        path:path
+      }
+    })
+  }
 }

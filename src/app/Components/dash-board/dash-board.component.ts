@@ -1,10 +1,11 @@
-import { Component,  ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { SignoutService } from 'src/app/services/UserServices/signout.service';
 import { NotesService } from 'src/app/services/NotesServices/notes.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material';
 import { LabelsDialogComponent } from '../labels-dialog/labels-dialog.component';
 import * as jwt_decode from "jwt-decode";
+import { AppService } from 'src/app/services/UserServices/app.service';
 
 @Component({
   selector: 'app-dash-board',
@@ -17,20 +18,22 @@ export class DashBoardComponent implements OnDestroy {
   private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
-  notesLabel : any;
+  notesLabel: any;
   token: string;
   payLoad: any;
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private service: SignoutService, private notes: NotesService,public dialog: MatDialog) {
+  selectedFile: File;
+  userid:any;
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private user: AppService, private notes: NotesService, public dialog: MatDialog) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     // tslint:disable-next-line: deprecation
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.token = localStorage.getItem('token');
-    this.payLoad =  jwt_decode(this.token);
+    this.payLoad = jwt_decode(this.token);
     this.notes.getlabels(this.payLoad.UserID).subscribe(responselabels => {
       this.notesLabel = responselabels;
       console.log(this.notesLabel)
-    },err=>{
+    }, err => {
       console.log(err);
     })
   }
@@ -39,6 +42,7 @@ export class DashBoardComponent implements OnDestroy {
   ngOnInit() {
     this.islist = true;
     this.isClicked = false;
+    this.userid = localStorage.getItem("UserId")
   }
   islist;
   isClicked;
@@ -71,23 +75,37 @@ export class DashBoardComponent implements OnDestroy {
 
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
-    let dialogRef = this.dialog.open( LabelsDialogComponent, {
+    let dialogRef = this.dialog.open(LabelsDialogComponent, {
       width: '250px',
-      data:this.notesLabel
-      
+      data: this.notesLabel
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result,"dash");
-      if(result.labels != '' && result.labels != null)
-      {
-      this.notes.AddLabels(result).subscribe((data:any) => {
-        console.log(data)
-      },err=>{ 
-        console.log(err);
+      console.log(result, "dash");
+      if (result.labels != '' && result.labels != null) {
+        this.notes.AddLabels(result).subscribe((data: any) => {
+          console.log(data)
+        }, err => {
+          console.log(err);
 
-    });
+        });
+      }
+    })
   }
-  })
-}
+
+  onFileChanged(event) {
+    debugger;
+    console.log(event);
+    this.selectedFile = event.target.files[0];
+    let formData:FormData = new FormData();
+        formData.append('uploadFile',  this.selectedFile.name);
+    console.log(this.selectedFile.name,"filepath");
+    this.user.profilepic(formData,this.userid).subscribe((data :any)=>{
+      console.log(data)
+    }, err => {
+      console.log(err);
+    })
+
+  }
 }

@@ -1,11 +1,17 @@
 <div class = "icon">
-<button mat-icon-button>
+<button mat-icon-button  [matMenuTriggerFor]="menureminder">
     <mat-icon class="material-icons">add_alert</mat-icon>
 </button>
 
-  <button mat-icon-button>
-    <mat-icon class="mat-18">person_add
-    </mat-icon>
+<mat-menu #menureminder="matMenu">
+  <button mat-menu-item  (click)="Today(card)">Later today   8:00PM </button>
+  <button mat-menu-item (click)="Tomorrow(card)">Tomorrow      8:00AM</button>
+  <button mat-menu-item (click)="nextWeek(card)">Next Week     8:00AM</button>
+  <button mat-menu-item>Pick date & time</button>
+</mat-menu>
+
+  <button mat-icon-button (click)="openDialog()">
+    <mat-icon class="mat-18">person_add</mat-icon>
   </button>
   
   <button mat-icon-button  [matMenuTriggerFor]="colorMenu">

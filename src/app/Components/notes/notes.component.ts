@@ -38,6 +38,7 @@ export class NotesComponent implements OnInit {
   getallnotes()
   {
     this.notes.getNotes(this.payLoad.UserID).subscribe(data =>{
+      console.log(data,"notes.ts");
       this.noteCards=[];
       this.cards=data["notesData"];
       console.log(this.cards);

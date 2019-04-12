@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { MatCard } from '@angular/material';
+import { MatCard, MatDialogConfig, MatDialog } from '@angular/material';
 import { NotesService } from 'src/app/services/NotesServices/notes.service';
 import { EventEmitter } from '@angular/core';
+import { CollaboratordialogComponent } from 'src/app/collaboratordialog/collaboratordialog.component';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class IconlistComponent implements OnInit {
   getColor
   notesLabel: any;
   userId:any;
-  constructor(private notes:NotesService) { 
+  constructor(private notes:NotesService,private dialog: MatDialog) { 
     this.userId = localStorage.getItem('UserId')
     this.notes.getlabels(this.userId).subscribe(responselabels => {
       this.notesLabel = responselabels;
@@ -100,5 +101,52 @@ export class IconlistComponent implements OnInit {
       console.log(err);
     }
     )
+  }
+
+  Today(card)
+  {
+    var date = new Date();
+    date.setHours(20,0,0)
+    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    this.notes.updateNotes(card).subscribe(data =>{
+      console.log(data);
+      this.update.emit({});
+    },err =>{
+      console.log(err);
+    })
+  }
+
+  Tomorrow(card)
+  {
+    var date = new Date();
+    date.setHours(8,0,0)
+    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate()+1) + " " +  date.getHours() + ":" + date.getMinutes();
+    this.notes.updateNotes(card).subscribe(data =>{
+      console.log(data);
+      this.update.emit({});
+    },err =>{
+      console.log(err);
+    })
+  }
+
+  nextWeek(card)
+  {
+    var date = new Date();
+    date.setHours(8,0,0)
+    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate()+7) + " " +  date.getHours() + ":" + date.getMinutes();
+    this.notes.updateNotes(card).subscribe(data =>{
+      console.log(data);
+      this.update.emit({});
+    },err =>{
+      console.log(err);
+    })
+  }
+
+  openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    let dialogRef = this.dialog.open(CollaboratordialogComponent, {
+      width: '250px',
+ 
+    });
   }
 }
