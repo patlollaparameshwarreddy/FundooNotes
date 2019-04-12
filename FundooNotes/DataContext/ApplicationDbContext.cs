@@ -6,6 +6,7 @@
 namespace FundooNotes.DataContext
 {
     using FundooData.Model;
+    using FundooNotes.model;
     using FundooNotes.Model;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
@@ -62,5 +63,21 @@ namespace FundooNotes.DataContext
         /// The notes labels.
         /// </value>
         public DbSet<NotesLabelTable> notesLabels { get; set; }
+
+        /// <summary>
+        /// Gets or sets the profile.
+        /// </summary>
+        /// <value>
+        /// The profile.
+        /// </value>
+        public DbSet<ProfilePic> profile { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collaborators.
+        /// </summary>
+        /// <value>
+        /// The collaborators.
+        /// </value>
+        public DbSet<CollaboratorModel> collaborators { get; set; }
     }
 }

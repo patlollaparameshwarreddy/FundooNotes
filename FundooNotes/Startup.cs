@@ -8,7 +8,9 @@ namespace FundooNotes
     using System;
     using System.Text;
     using FundooNotes.DataContext;
+    using FundooNotes.Interfaces;
     using FundooNotes.Model;
+    using FundooNotes.services;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -48,6 +50,7 @@ namespace FundooNotes
             ////services.AddAutoMapper();
             services.AddTransient<UserManager<ApplicationUser>>();
             services.AddTransient<ApplicationDbContext>();
+            services.AddTransient<INotes,NotesServices>();
             services.AddTransient<AppSetting>();
             services.Configure<AppSetting>(this.Configuration.GetSection("AppSettings"));           
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));

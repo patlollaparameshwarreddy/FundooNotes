@@ -24,6 +24,9 @@ namespace FundooNotes.Controllers
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.AspNetCore.Hosting;
+    using FundooNotes.model;
+    using FundooNotes.DataContext;
+    using System.Linq;
 
     /// <summary>
     /// user controller class
@@ -60,6 +63,8 @@ namespace FundooNotes.Controllers
 
         private IHostingEnvironment _hostingEnvironment;
 
+        private readonly ApplicationDbContext context;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UserController"/> class.
         /// </summary>
@@ -68,7 +73,7 @@ namespace FundooNotes.Controllers
         /// <param name="emailSender">The email sender.</param>
         /// <param name="appSetting">The application setting.</param>
         /// <param name="distributedCache">The distributed cache.</param>
-        public UserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, IOptions<AppSetting> appSetting, IDistributedCache distributedCache, IHostingEnvironment hostingEnvironment)
+        public UserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailSender emailSender, IOptions<AppSetting> appSetting, IDistributedCache distributedCache, IHostingEnvironment hostingEnvironment, ApplicationDbContext context)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -76,6 +81,7 @@ namespace FundooNotes.Controllers
             this.distributedCache = distributedCache;
             this.appSettings = appSetting.Value;
             _hostingEnvironment = hostingEnvironment;
+            this.context = context;
         }
 
         /// <summary>
@@ -143,7 +149,7 @@ namespace FundooNotes.Controllers
                     var token = this.distributedCache.GetString(cacheKey);
                     token = tokenHandler.WriteToken(securityToken);
                     this.distributedCache.SetString(cacheKey, token);
-                    return this.Ok(new { token });
+                    return this.Ok(new { token,user });
                 }
                 else
                 {
@@ -212,8 +218,8 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPost]
-        [Route("profile")]
-        public ImageUploadResult Upload(IFormFile Files)
+        [Route("profile/{userId}")]
+        public string Upload(IFormFile Files,[FromRoute] Guid userId)
         {
             var stream = Files.OpenReadStream();
             var name = Files.FileName;
@@ -225,7 +231,25 @@ namespace FundooNotes.Controllers
                 File = new FileDescription(name, stream)
             };
             var uploadResult = cloudinary.Upload(uploadParams);
-            return uploadResult;
+            //return uploadResult.Uri.ToString();
+            var pic = new ProfilePic()
+            {
+                UserId = userId,
+                ImageUrl = uploadResult.Uri.ToString()
+            };
+
+            int result = 0;
+            try
+            {
+                this.context.profile.Add(pic);
+                result = this.context.SaveChanges();
+                return result.ToString();
+            }
+            catch (Exception ex)
+            {
+               return ex.ToString();
+            }
+
         }
     }
 }
