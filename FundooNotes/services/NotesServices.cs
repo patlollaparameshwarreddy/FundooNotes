@@ -112,18 +112,21 @@ namespace FundooNotes.services
         }
 
        
-        public object GetNotes(Guid userId)
+        public IList<GetNotesData> GetNotes(Guid userId)
         {
             try
             {
                 var list = new List<NotesModel>();
                 var labels = new List<LabelsModel>();
                 GetNotesData data = new GetNotesData();
-                var notesData = from notes in this.context.Notes where notes.userId == userId orderby notes.Id descending select notes;
+                var notesData = from notes in this.context.Notes 
+                                where notes.userId == userId orderby notes.Id descending select notes;
                 foreach (var item in notesData)
                 {
                     list.Add(item);
+                    
                 }
+
                 var Label = from t in context.labels where t.UserId == userId select t;
                 foreach (var lbl in Label)
                 {
@@ -132,11 +135,13 @@ namespace FundooNotes.services
 
                 data.notesData = list;
                 data.labelsData = labels;
-                return data;
+                var notesdata = new List<GetNotesData>();
+                notesdata.Add(data);
+                return notesdata.ToArray();
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                throw new Exception(ex.Message);
             }
 
         }
@@ -204,12 +209,11 @@ namespace FundooNotes.services
             }
         }
 
-        public object GetLabels(Guid UserId)
+        public List<LabelsModel> GetLabels(Guid UserId)
         {
             try
             {
                 var list = new List<LabelsModel>();
-                GetNotesData data = new GetNotesData();
                 var labels = from t in this.context.labels where t.UserId == UserId select t;
                 foreach (var items in labels)
                 {
@@ -220,7 +224,7 @@ namespace FundooNotes.services
             }
             catch (Exception ex)
             {
-                return ex.Message.ToString();
+                throw new Exception(ex.Message);
             }
 
         }
@@ -353,10 +357,22 @@ namespace FundooNotes.services
            
         }
 
-        //public string removeCollaboratorToNote()
-        //{
+        public string RemoveCollaboratorToNote(int id)
+        {
+            try
+            {
+                var data = context.collaborators.Where<CollaboratorModel>(t => t.Id == id).FirstOrDefault();
+                int result = 0;
+                context.collaborators.Remove(data);
+                result = context.SaveChanges();
+                return result.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
 
-        //}
+        }
     }
 }
 

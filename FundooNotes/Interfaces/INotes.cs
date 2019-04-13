@@ -1,5 +1,6 @@
 ﻿using FundooData.Model;
 using FundooNotes.model;
+using FundooNotes.Model;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,17 @@ namespace FundooNotes.Interfaces
         void AddNotes(NotesModel notesModel);
         void UpdateNotes([FromBody] NotesModel notesModel, int id);
         void DeleteNotes(int id);
-        object GetNotes(Guid userId);
+        IList<GetNotesData> GetNotes(Guid userId);
         object GetArchiveNotes(Guid userId);
         object ReminderNotes(Guid userId);
         void AddLabels([FromBody] LabelsModel newLabel);
-        object GetLabels(Guid UserId);
+        List<LabelsModel> GetLabels(Guid UserId);
         string UpdateLabels(int id, string newlabel);
         void DeleteLabel(int id);
         string AddNotesLabel([FromBody]NotesLabelTable model);
         List<NotesLabelTable> GetNotesLabel(Guid userId);
         void DeleteNotesLabel(int id);
         string AddCollaboratorToNote([FromBody]CollaboratorModel model);
+        string RemoveCollaboratorToNote(int id);
     }
 }

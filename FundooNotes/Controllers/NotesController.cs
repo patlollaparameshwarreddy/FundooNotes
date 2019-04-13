@@ -75,9 +75,9 @@ namespace FundooNotes.Controllers
         /// <param name="email">The email.</param>
         /// <returns>the object</returns>
         [HttpGet]
-        public object GetNotes(Guid userId)
+        public IActionResult GetNotes(Guid userId)
         {           
-            return Notes.GetNotes(userId);
+            return Ok( Notes.GetNotes(userId));
         }
 
         [HttpGet("archive")]
@@ -103,7 +103,7 @@ namespace FundooNotes.Controllers
 
         [HttpGet]
         [Route("labels")]
-        public object GetLabels(Guid UserId)
+        public List<LabelsModel> GetLabels(Guid UserId)
         {
            return Notes.GetLabels(UserId);
            
@@ -146,10 +146,17 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPost]
-        [Route("notescollaborator")]
+        [Route("collaborator")]
         public string AddCollaboratorToNote([FromBody]CollaboratorModel model)
         {
             return Notes.AddCollaboratorToNote(model);
+        }
+
+        [HttpDelete]
+        [Route("collaborator")]
+        public string DeleteCollaboratorToNote(int id)
+        {
+            return Notes.RemoveCollaboratorToNote(id);
         }
     }
 }

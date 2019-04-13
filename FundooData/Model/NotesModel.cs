@@ -3,7 +3,9 @@
 //   Copyright © 2018 Company
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+using FundooNotes.model;
 using System;
+using System.Collections.Generic;
 
 namespace FundooData.Model
 {
@@ -95,6 +97,6 @@ namespace FundooData.Model
         /// </value>
         public string Reminder { get; set; }
 
-
+        public List<CollaboratorModel> collaborators { get; set; }
     }
 }
