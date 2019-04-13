@@ -145,8 +145,7 @@ export class IconlistComponent implements OnInit {
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
     let dialogRef = this.dialog.open(CollaboratordialogComponent, {
-      width: '250px',
- 
+
     });
   }
 }

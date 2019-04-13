@@ -24,7 +24,7 @@ export class TrashComponent implements OnInit {
   getAllTrashcards(){
     console.log("archive");
     this.notes.getNotes(this.decodedToken.UserID).subscribe(data =>{
-      this.cards=data["notesData"];
+      this.cards=data[0].notesData;
       this.cards.forEach(element => {
         if(element.isTrash){
           this.trashCards.push(element);

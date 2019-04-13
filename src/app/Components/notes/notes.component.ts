@@ -39,8 +39,9 @@ export class NotesComponent implements OnInit {
   {
     this.notes.getNotes(this.payLoad.UserID).subscribe(data =>{
       console.log(data,"notes.ts");
+      console.log()
       this.noteCards=[];
-      this.cards=data["notesData"];
+      this.cards=data[0].notesData;
       console.log(this.cards);
       this.cards.forEach(element => {
         if(element.isArchive || element.isTrash){

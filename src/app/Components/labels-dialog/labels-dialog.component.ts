@@ -36,4 +36,9 @@ export class LabelsDialogComponent implements OnInit {
       )
   }
 
+  delete(label)
+  {
+    
+  }
+
 }
