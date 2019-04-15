@@ -162,6 +162,43 @@ namespace FundooNotes.Controllers
             }          
         }
 
+        [HttpPost]
+        [Route("fblogin")]
+        public async Task<IActionResult> FbLogin(string email)
+        {
+            try
+            {
+                var user = await this.userManager.FindByEmailAsync(email);
+                if (user != null)
+                {
+                    var tokenDescriptor = new SecurityTokenDescriptor
+                    {
+                        Subject = new ClaimsIdentity(new Claim[]
+                  {
+                       new Claim("UserID", user.Id.ToString())
+                  }),
+                        Expires = DateTime.UtcNow.AddDays(1),
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.appSettings.Secret)), SecurityAlgorithms.HmacSha256Signature)
+                    };
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+                    var cacheKey = email;
+                    var token = this.distributedCache.GetString(cacheKey);
+                    token = tokenHandler.WriteToken(securityToken);
+                    this.distributedCache.SetString(cacheKey, token);
+                    return this.Ok(new { token, user });
+                }
+                else
+                {
+                    return this.BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         /// <summary>
         /// Logouts this instance.
         /// </summary>
@@ -215,6 +252,29 @@ namespace FundooNotes.Controllers
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(mailMessage);
             return true;
+        }
+
+        [HttpPost]
+        [Route("resetpassword")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
+        {
+            try
+            {
+                ////to find user by email id
+                var user = await this.userManager.FindByEmailAsync(model.Email);
+                var token = await this.userManager.GeneratePasswordResetTokenAsync(user);
+                var result = await this.userManager.ResetPasswordAsync(user, token, model.Password);
+                if (result.Succeeded)
+                {
+                    return this.Ok();
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+
+            return this.BadRequest();
         }
 
         [HttpPost]

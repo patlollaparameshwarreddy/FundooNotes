@@ -288,8 +288,6 @@ namespace FundooNotes.services
             {
                 return ex.Message;
             }
-            
-
         }
 
         public List<NotesLabelTable> GetNotesLabel(Guid userId)
@@ -354,7 +352,6 @@ namespace FundooNotes.services
             {
                 return ex.Message;
             }
-           
         }
 
         public string RemoveCollaboratorToNote(int id)
@@ -371,7 +368,6 @@ namespace FundooNotes.services
             {
                 return ex.Message;
             }
-
         }
     }
 }
