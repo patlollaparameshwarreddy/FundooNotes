@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {  HttpClient} from '@angular/common/http';
+import { stringify } from '@angular/core/src/render3/util';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,12 @@ export class AppService {
         path:path
       }
     })
+  }
+
+  fbLogin(email)
+  {
+    const obj={email:email}
+    console.log(typeof {email:email},"serviceeee")
+    return this.http.post(this.link +'fblogin?email='+email,'')
   }
 }

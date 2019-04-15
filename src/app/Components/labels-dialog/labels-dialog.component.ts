@@ -38,7 +38,8 @@ export class LabelsDialogComponent implements OnInit {
 
   delete(label)
   {
-    
+    this.notes.deletelabel(label.id).subscribe(result =>
+      console.log(result) )
   }
 
 }

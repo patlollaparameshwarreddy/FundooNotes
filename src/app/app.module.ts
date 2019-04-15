@@ -2,21 +2,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatTableModule, MatFormFieldModule, MatDialogModule } from '@angular/material';
-import {MatToolbarModule, MatToolbarRow} from '@angular/material/toolbar';
+import { MatToolbarModule, MatToolbarRow } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { RegistrationComponent } from '../app/Components/registration/registration.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ForgetpasswordComponent } from '../app/Components/forgetpassword/forgetpassword.component';
 import { HttpClientModule } from '@angular/common/http';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatIconModule,} from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
-import {NgxToggleModule} from "ngx-toggle";
-import {MatMenuModule} from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule, } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { NgxToggleModule } from "ngx-toggle";
+import { MatMenuModule } from '@angular/material/menu';
 import { AuthGuard } from './auth.guard';
 import { DashBoardComponent } from './Components/dash-board/dash-board.component';
 import { DisplaynotesComponent } from './Components/displaynotes/displaynotes.component';
@@ -30,9 +30,24 @@ import { ArchiveComponent } from './Components/archive/archive.component';
 import { TrashComponent } from './Components/trash/trash.component';
 import { ReminderComponent } from './Components/reminder/reminder.component';
 import { LabelsDialogComponent } from './Components/labels-dialog/labels-dialog.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
 import { CollaboratordialogComponent } from './collaboratordialog/collaboratordialog.component';
+import {SocialLoginModule, AuthServiceConfig, GoogleLoginProvider,FacebookLoginProvider} from "angular-6-social-login";
+import {DragDropModule} from '@angular/cdk/drag-drop';
+
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+      [
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider("278500073026598")
+        },
+      ]
+  );
+  return config;
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,11 +66,12 @@ import { CollaboratordialogComponent } from './collaboratordialog/collaboratordi
     ReminderComponent,
     LabelsDialogComponent,
     CollaboratordialogComponent,
+    
 
-   
+
   ],
   imports: [
-    BrowserModule,   MatInputModule, MatButtonModule, MatCardModule, MatTableModule, MatFormFieldModule,
+    BrowserModule, MatInputModule, MatButtonModule, MatCardModule, MatTableModule, MatFormFieldModule,
     AppRoutingModule,
     RouterModule,
     BrowserAnimationsModule,
@@ -72,9 +88,15 @@ import { CollaboratordialogComponent } from './collaboratordialog/collaboratordi
     MatDialogModule,
     MatCheckboxModule,
     MatChipsModule,
+    SocialLoginModule,
+    DragDropModule
     
   ],
-  providers: [AuthGuard],
-  bootstrap: [AppComponent]
+  providers: [AuthGuard, {
+    provide: AuthServiceConfig,
+    useFactory: getAuthServiceConfigs
+  }],
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

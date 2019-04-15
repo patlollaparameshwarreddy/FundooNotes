@@ -123,4 +123,10 @@ loggedIn()
       userId:userId
     } });
    }
+
+   deletelabel(lableid)
+  {
+    return this.http.delete(this.link+ '/' + 'label/' + lableid)
+    
+  }
 }

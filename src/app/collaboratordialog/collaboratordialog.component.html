@@ -10,7 +10,7 @@
       </button>
       <div fxLayout="column">
         <div class="usernameStyle">
-          {{firstname}}  {{lastname}}<span style="font-style: italic">(Owner)</span>
+          {{firstname}} {{lastname}}<span style="font-style: italic">(Owner)</span>
         </div>
         <div class="emailStyle">
           {{email}}
@@ -18,6 +18,18 @@
       </div>
     </span>
   </div>
+
+  <div fxLayout="row" style="position: relative;">
+    <div class="user">
+      <button mat-icon-button class="icon">
+        <mat-icon>person_outline</mat-icon>
+      </button>
+    </div>
+    <div >
+      <input mat-input placeholder="email to share">
+    </div>
+  </div>
+
   <div mat-dialog-actions class="actionDialog">
     <button mat-raised-button class="actionButton" [mat-dialog-close]>Cancel</button>
     <button mat-raised-button class="actionButton" [mat-dialog-close]>Save</button>
