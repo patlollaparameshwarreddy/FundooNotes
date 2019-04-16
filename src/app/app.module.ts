@@ -35,6 +35,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { CollaboratordialogComponent } from './collaboratordialog/collaboratordialog.component';
 import {SocialLoginModule, AuthServiceConfig, GoogleLoginProvider,FacebookLoginProvider} from "angular-6-social-login";
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { MessagingService } from './shared/messaging.service';
+import { AsyncPipe } from '@angular/common';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -89,10 +96,15 @@ export function getAuthServiceConfigs() {
     MatCheckboxModule,
     MatChipsModule,
     SocialLoginModule,
-    DragDropModule
+    DragDropModule,
+    BrowserModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
     
   ],
-  providers: [AuthGuard, {
+  providers: [AuthGuard,MessagingService, AsyncPipe, {
     provide: AuthServiceConfig,
     useFactory: getAuthServiceConfigs
   }],

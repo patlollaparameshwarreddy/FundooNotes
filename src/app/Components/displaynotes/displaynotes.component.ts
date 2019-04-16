@@ -18,7 +18,8 @@ export class DisplaynotesComponent implements OnInit {
   cards: any;
   allLabels: any;
   notesLabels: any;
-  userId
+  userId;
+  searchText;
   @Input() noteCards = [];
   @Input() type;
   @Output() cardUpdate = new EventEmitter();

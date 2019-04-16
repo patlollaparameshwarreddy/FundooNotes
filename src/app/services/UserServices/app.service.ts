@@ -17,20 +17,14 @@ export class AppService {
     return this.http.post(this.link + url,user);
   }
 
-  profilepic(path,useid){
-    return this.http.post(this.link + 'profile/' + useid,
-    {
-      params:
-      {
-        path:path
-      }
-    })
+  profilepic(path,email){
+    console.log(path,"profileeee");
+    return this.http.post(this.link + 'profile/' + email,path)
   }
 
   fbLogin(email)
   {
-    const obj={email:email}
-    console.log(typeof {email:email},"serviceeee")
+    
     return this.http.post(this.link +'fblogin?email='+email,'')
   }
 }

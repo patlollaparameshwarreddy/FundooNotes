@@ -21,8 +21,9 @@ export class DashBoardComponent implements OnDestroy {
   notesLabel: any;
   token: string;
   payLoad: any;
-  selectedFile: File;
   userid:any;
+  email: string;
+  selectedFile: File;
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private user: AppService, private notes: NotesService, public dialog: MatDialog) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -42,7 +43,7 @@ export class DashBoardComponent implements OnDestroy {
   ngOnInit() {
     this.islist = true;
     this.isClicked = false;
-    this.userid = localStorage.getItem("UserId")
+    this.email = localStorage.getItem("email")
   }
   islist;
   isClicked;
@@ -97,15 +98,18 @@ export class DashBoardComponent implements OnDestroy {
   onFileChanged(event) {
     debugger;
     console.log(event);
-    this.selectedFile = event.target.files[0];
-    let formData:FormData = new FormData();
-        formData.append('uploadFile',  this.selectedFile.name);
-    console.log(this.selectedFile.name,"filepath");
-    this.user.profilepic(formData,this.userid).subscribe((data :any)=>{
+    this.selectedFile = <File>event.target.files[0];
+    console.log(this.selectedFile,"gjghj");
+    let uploadData = new FormData();
+    uploadData.append('file',this.selectedFile);
+    console.log(uploadData,"dfsd");
+    this.user.profilepic(uploadData,this.email).subscribe((data:any) => {
       console.log(data)
-    }, err => {
+    },err =>{
       console.log(err);
-    })
-
+    }
+    );
   }
+
+  
 }
