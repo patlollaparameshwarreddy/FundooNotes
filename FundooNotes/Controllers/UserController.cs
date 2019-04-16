@@ -278,38 +278,42 @@ namespace FundooNotes.Controllers
         }
 
         [HttpPost]
-        [Route("profile/{userId}")]
-        public string Upload(IFormFile Files,[FromRoute] Guid userId)
+        [Route("profile/{email}")]
+        public string Upload(IFormFile files,string email)
         {
-            var stream = Files.OpenReadStream();
-            var name = Files.FileName;
-            CloudinaryDotNet.Account account = new CloudinaryDotNet.Account("dekmrle72", "699555858957497", "LJIgvOlD9bDG5XvT9fLkIco_sZg");
-
-            CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
-            var uploadParams = new ImageUploadParams()
-            {
-                File = new FileDescription(name, stream)
-            };
-            var uploadResult = cloudinary.Upload(uploadParams);
-            //return uploadResult.Uri.ToString();
-            var pic = new ProfilePic()
-            {
-                UserId = userId,
-                ImageUrl = uploadResult.Uri.ToString()
-            };
-
-            int result = 0;
             try
             {
-                this.context.profile.Add(pic);
-                result = this.context.SaveChanges();
-                return result.ToString();
-            }
-            catch (Exception ex)
-            {
-               return ex.ToString();
-            }
+                if (files == null)
+                {
+                    return "no file found";
+                }
+                var stream = files.OpenReadStream();
+                var name = files.FileName;
+                CloudinaryDotNet.Account account = new CloudinaryDotNet.Account("dekmrle72", "699555858957497", "LJIgvOlD9bDG5XvT9fLkIco_sZg");
 
+                CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(name, stream)
+                };
+                var uploadResult = cloudinary.Upload(uploadParams);
+                var data = this.context.ApplicationUsers.Where(t => t.Email == email).FirstOrDefault();
+                data.profilePic = uploadResult.Uri.ToString();
+                int result = 0;
+                try
+                {
+                    result = this.context.SaveChanges();
+                    return data.profilePic;
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message.ToString();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

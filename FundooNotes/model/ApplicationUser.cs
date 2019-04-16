@@ -32,5 +32,13 @@ namespace FundooNotes.Model
         /// </value>
         [Required]
         public string LastName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the profile pic.
+        /// </summary>
+        /// <value>
+        /// The profile pic.
+        /// </value>
+        public string profilePic { get; set; }
     }
 }
