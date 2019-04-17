@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundooNotes", "FundooNotes\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FundooData", "FundooData\FundooData.csproj", "{96221C7D-FD20-4992-B160-16459D092960}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotesApiTesting", "NotesApiTesting\NotesApiTesting.csproj", "{EE58D5CB-9ED9-4BE0-B91B-4CDEDA5AF583}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{96221C7D-FD20-4992-B160-16459D092960}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96221C7D-FD20-4992-B160-16459D092960}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96221C7D-FD20-4992-B160-16459D092960}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE58D5CB-9ED9-4BE0-B91B-4CDEDA5AF583}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE58D5CB-9ED9-4BE0-B91B-4CDEDA5AF583}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE58D5CB-9ED9-4BE0-B91B-4CDEDA5AF583}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE58D5CB-9ED9-4BE0-B91B-4CDEDA5AF583}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
