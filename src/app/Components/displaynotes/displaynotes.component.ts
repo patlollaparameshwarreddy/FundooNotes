@@ -110,4 +110,26 @@ export class DisplaynotesComponent implements OnInit {
       console.log(err);
     })
   }
+
+  pinnote(note)
+  {
+    note.isPin = true;
+    note.isPin = note.isPin;
+    this.notes.updateNotes(note).subscribe(data =>{
+      console.log(data);
+    },err =>{
+      console.log(err);
+    })
+  }
+
+  unpinnote(note)
+  {
+    note.isPin = false;
+    note.isPin = note.isPin;
+    this.notes.updateNotes(note).subscribe(data =>{
+      console.log(data);
+    },err =>{
+      console.log(err);
+    })
+  }
 }
