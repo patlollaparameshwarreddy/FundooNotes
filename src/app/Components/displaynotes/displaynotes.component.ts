@@ -3,8 +3,7 @@ import * as jwt_decode from "jwt-decode";
 import { NotesService } from 'src/app/services/NotesServices/notes.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
-import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/render3/view/util';
-
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-displaynotes',
@@ -131,5 +130,13 @@ export class DisplaynotesComponent implements OnInit {
     },err =>{
       console.log(err);
     })
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.noteCards, event.previousIndex, event.currentIndex);
+    console.log(event.previousIndex,"previousss");
+    console.log(event.currentIndex,"currenttt");
+    console.log(event.container);
+
   }
 }

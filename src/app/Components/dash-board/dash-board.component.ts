@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angu
 import { LabelsDialogComponent } from '../labels-dialog/labels-dialog.component';
 import * as jwt_decode from "jwt-decode";
 import { AppService } from 'src/app/services/UserServices/app.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-dash-board',
@@ -23,8 +24,9 @@ export class DashBoardComponent implements OnDestroy {
   payLoad: any;
   userid:any;
   email: string;
+  value;
   selectedFile: File;
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private user: AppService, private notes: NotesService, public dialog: MatDialog) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private user: AppService, private notes: NotesService, public router:Router ,public dialog: MatDialog) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     // tslint:disable-next-line: deprecation
@@ -63,6 +65,14 @@ export class DashBoardComponent implements OnDestroy {
     }
     this.notes.gridview();
   }
+
+  lookfor(){
+
+  }
+  goSearch(){
+    // this.router.navigate(['dashboard/search'])
+  }
+
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation
     this.mobileQuery.removeListener(this._mobileQueryListener);

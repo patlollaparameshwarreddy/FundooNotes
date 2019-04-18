@@ -50,8 +50,9 @@
   </div>
 </div>
     <!-- unpin -->
-    <div class="notesDisplay"  >
-        <div *ngFor="let note of noteCards" cdkDrag>
+    <!-- <input type="text" [(ngModel)]="searchText" placeholder="name"> -->
+    <div class="notesDisplay" cdkDropList  (cdkDropListDropped)="drop($event)" >
+        <div *ngFor="let note of noteCards | filter:searchText" cdkDrag>
           <div >
             <mat-card  *ngIf = "note.isPin == false" fxLayoutGap="20px" class="cardDisplay" [style.background-color]=note.colorCode>
               <div (click)="openDialog(note)">

@@ -42,6 +42,9 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { MessagingService } from './shared/messaging.service';
 import { AsyncPipe } from '@angular/common';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SearchcomponentComponent } from './Components/searchcomponent/searchcomponent.component';
+
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -73,8 +76,7 @@ export function getAuthServiceConfigs() {
     ReminderComponent,
     LabelsDialogComponent,
     CollaboratordialogComponent,
-    
-
+    SearchcomponentComponent,
 
   ],
   imports: [
@@ -102,6 +104,7 @@ export function getAuthServiceConfigs() {
     AngularFireAuthModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
+    Ng2SearchPipeModule
     
   ],
   providers: [AuthGuard,MessagingService, AsyncPipe, {
