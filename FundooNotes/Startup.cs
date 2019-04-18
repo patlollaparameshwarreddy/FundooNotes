@@ -20,6 +20,7 @@ namespace FundooNotes
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
+    using Swashbuckle.AspNetCore.Swagger;
 
     /// <summary>
     /// this is the startup class
@@ -98,8 +99,8 @@ namespace FundooNotes
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
                     ClockSkew = TimeSpan.Zero
                 };
             });
@@ -110,6 +111,11 @@ namespace FundooNotes
             {
                 facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                 facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("V1", new Info { Title = "FundooNotesApp", Version = "V1" });
             });
         }
 
@@ -135,6 +141,11 @@ namespace FundooNotes
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/V1/swagger.json", "FundooNotesApp V1");
+            });
         }
     }
 }

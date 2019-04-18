@@ -27,6 +27,7 @@ namespace FundooNotes.Controllers
     using FundooNotes.model;
     using FundooNotes.DataContext;
     using System.Linq;
+    using Microsoft.AspNetCore.Authorization;
 
     /// <summary>
     /// user controller class
@@ -138,8 +139,9 @@ namespace FundooNotes.Controllers
                     {
                         Subject = new ClaimsIdentity(new Claim[]
                   {
+                     
                        new Claim("UserID", user.Id.ToString())
-                  }),
+                  }), 
                         Expires = DateTime.UtcNow.AddDays(1),
                         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.appSettings.Secret)), SecurityAlgorithms.HmacSha256Signature)
                     };

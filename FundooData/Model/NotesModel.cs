@@ -97,6 +97,14 @@ namespace FundooData.Model
         /// </value>
         public string Reminder { get; set; }
 
+        /// <summary>
+        /// Gets or sets the position.
+        /// </summary>
+        /// <value>
+        /// The position.
+        /// </value>
+        public int position { get; set; }
+
         public List<CollaboratorModel> collaborators { get; set; }
     }
 }

@@ -13,9 +13,11 @@ namespace FundooNotes.Controllers
     using FundooNotes.Interfaces;
     using FundooNotes.model;
     using FundooNotes.Model;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+   [Authorize]
     /// <summary>
     /// this is the controller class
     /// </summary>D:\FundooNotes\FundooNotes\Interfaces\INotes.cs
