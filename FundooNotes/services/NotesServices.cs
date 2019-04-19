@@ -14,20 +14,14 @@ namespace FundooNotes.services
 {
     public class NotesServices : INotes
     {
-        /// <summary>
-        /// The user manager
-        /// </summary>
-        private readonly UserManager<ApplicationUser> userManager;
-
+   
         /// <summary>
         /// The context
         /// </summary>
         private ApplicationDbContext context;
 
-        public object ModelState { get; private set; }
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotesController"/> class.
+        /// Initializes a new instance of the <see cref="NotesServices"/> class.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="userManager">The user manager.</param>
@@ -330,7 +324,7 @@ namespace FundooNotes.services
                 var data = from t in context.collaborators where t.UserId == model.UserId select t;
                 foreach (var datas in data.ToList())
                 {
-                    if (datas.NoteId == model.NoteId && datas.SharedEmail == model.SharedEmail)
+                    if (datas.NoteId == model.NoteId && datas.ReceiverEmail == model.ReceiverEmail)
                     {
                         return false.ToString();
                     }
@@ -338,9 +332,11 @@ namespace FundooNotes.services
 
                 var newdata = new CollaboratorModel()
                 {
-                    NoteId = model.NoteId,
                     UserId = model.UserId,
-                    SharedEmail = model.SharedEmail
+                    NoteId = model.NoteId,
+                    SenderEmail = model.SenderEmail,
+                    ReceiverEmail = model.ReceiverEmail,
+
                 };
 
                 int result = 0;
@@ -368,6 +364,34 @@ namespace FundooNotes.services
             {
                 return ex.Message;
             }
+        }
+
+        public string SharedNotes(string email)
+        {
+
+            var data = from n in context.Notes
+                       join c in context.collaborators on n.Id equals c.NoteId
+                       where c.ReceiverEmail == email
+                       select new
+                       {
+                           n.Id,
+                           n.Title,
+                           n.TakeANote,
+                           c.SenderEmail
+                       }.ToString();
+            return data.ToString();
+
+            //var list = new List<NotesModel>();
+            //var notesData = from notes in this.context.Notes
+            //                where notes.userId == userId
+            //                orderby notes.Id descending
+            //                select notes;
+            ////foreach (var item in notesData)
+            ////{
+            ////    list.Add(item);
+
+            ////}
+
         }
     }
 }

@@ -8,6 +8,7 @@ namespace FundooNotes.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using FundooData.Model;
     using FundooNotes.DataContext;
     using FundooNotes.Interfaces;
@@ -17,7 +18,6 @@ namespace FundooNotes.Controllers
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-   [Authorize]
     /// <summary>
     /// this is the controller class
     /// </summary>D:\FundooNotes\FundooNotes\Interfaces\INotes.cs
@@ -160,5 +160,12 @@ namespace FundooNotes.Controllers
         {
             return Notes.RemoveCollaboratorToNote(id);
         }
+
+        //[HttpPost]
+        //[Route("check")]
+        //public string SharedNotes(string email)
+        //{
+        //    return Notes.SharedNotes(email);
+        //}
     }
 }

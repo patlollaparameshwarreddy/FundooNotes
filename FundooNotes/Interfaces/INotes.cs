@@ -26,5 +26,6 @@ namespace FundooNotes.Interfaces
         void DeleteNotesLabel(int id);
         string AddCollaboratorToNote([FromBody]CollaboratorModel model);
         string RemoveCollaboratorToNote(int id);
+        //string SharedNotes(string email);
     }
 }

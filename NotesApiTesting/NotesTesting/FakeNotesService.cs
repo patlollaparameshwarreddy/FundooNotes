@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace NotesApiTesting.NotesTesting
 {
@@ -97,6 +98,11 @@ namespace NotesApiTesting.NotesTesting
         }
 
         public void UpdateNotes([FromBody] NotesModel notesModel, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<object> INotes.ShareCollaborator(CollaboratorModel model)
         {
             throw new NotImplementedException();
         }

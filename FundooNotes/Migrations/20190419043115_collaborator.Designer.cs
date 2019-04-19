@@ -4,14 +4,16 @@ using FundooNotes.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FundooNotes.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190419043115_collaborator")]
+    partial class collaborator
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,17 +94,17 @@ namespace FundooNotes.Migrations
 
                     b.Property<int>("NoteId");
 
-                    b.Property<int?>("NotesModelId");
-
                     b.Property<string>("ReceiverEmail");
 
                     b.Property<string>("SenderEmail");
 
                     b.Property<Guid>("UserId");
 
+                    b.Property<int?>("notesModelId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("NotesModelId");
+                    b.HasIndex("notesModelId");
 
                     b.ToTable("collaborators");
                 });
@@ -309,9 +311,9 @@ namespace FundooNotes.Migrations
 
             modelBuilder.Entity("FundooNotes.model.CollaboratorModel", b =>
                 {
-                    b.HasOne("FundooData.Model.NotesModel")
+                    b.HasOne("FundooData.Model.NotesModel", "notesModel")
                         .WithMany("collaborators")
-                        .HasForeignKey("NotesModelId");
+                        .HasForeignKey("notesModelId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
