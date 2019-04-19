@@ -16,6 +16,7 @@ import { TrashComponent } from './Components/trash/trash.component';
 import { ReminderComponent } from './Components/reminder/reminder.component';
 import { LabelsDialogComponent } from './Components/labels-dialog/labels-dialog.component';
 import { CollaboratordialogComponent } from './collaboratordialog/collaboratordialog.component';
+import { SearchcomponentComponent } from './Components/searchcomponent/searchcomponent.component';
 
 const routes: Routes = [
   {
@@ -73,6 +74,10 @@ const routes: Routes = [
       {
         path:'collaborator',
         component:CollaboratordialogComponent
+      },
+      {
+        path:'search',
+        component:SearchcomponentComponent
       }
     ]
   },

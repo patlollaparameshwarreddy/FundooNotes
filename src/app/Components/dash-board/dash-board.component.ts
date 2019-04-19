@@ -7,7 +7,7 @@ import { LabelsDialogComponent } from '../labels-dialog/labels-dialog.component'
 import * as jwt_decode from "jwt-decode";
 import { AppService } from 'src/app/services/UserServices/app.service';
 import { Router } from '@angular/router'
-
+import {DataserviceService} from '../../services/Dataservice/dataservice.service'
 @Component({
   selector: 'app-dash-board',
   templateUrl: './dash-board.component.html',
@@ -26,7 +26,8 @@ export class DashBoardComponent implements OnDestroy {
   email: string;
   value;
   selectedFile: File;
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private user: AppService, private notes: NotesService, public router:Router ,public dialog: MatDialog) {
+  photo=localStorage.getItem('imgUrl');
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private user: AppService,private data:DataserviceService, private notes: NotesService, public router:Router ,public dialog: MatDialog) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     // tslint:disable-next-line: deprecation
@@ -67,10 +68,10 @@ export class DashBoardComponent implements OnDestroy {
   }
 
   lookfor(){
-
+this.data.changeMessage(this.value)
   }
   goSearch(){
-    // this.router.navigate(['dashboard/search'])
+    this.router.navigate(['dashboard/search'])
   }
 
   ngOnDestroy(): void {
@@ -108,13 +109,14 @@ export class DashBoardComponent implements OnDestroy {
   onFileChanged(event) {
     debugger;
     console.log(event);
-    this.selectedFile = <File>event.target.files[0];
+    this.selectedFile = event.target.files[0];
     console.log(this.selectedFile,"gjghj");
     let uploadData = new FormData();
-    uploadData.append('file',this.selectedFile);
+    uploadData.append('files',this.selectedFile,'files');
     console.log(uploadData,"dfsd");
     this.user.profilepic(uploadData,this.email).subscribe((data:any) => {
-      console.log(data)
+      console.log(data);
+      localStorage.setItem('imgUrl',data);
     },err =>{
       console.log(err);
     }

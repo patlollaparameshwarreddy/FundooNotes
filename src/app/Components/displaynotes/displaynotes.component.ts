@@ -4,7 +4,7 @@ import { NotesService } from 'src/app/services/NotesServices/notes.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-
+import {DataserviceService} from '../../services/Dataservice/dataservice.service'
 @Component({
   selector: 'app-displaynotes',
   templateUrl: './displaynotes.component.html',
@@ -12,19 +12,21 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 })
 export class DisplaynotesComponent implements OnInit {
+  
   token: any;
   payLoad: any;
   cards: any;
   allLabels: any;
   notesLabels: any;
   userId;
-  searchText;
+  searchText:string=''
+  @Input() search;
   @Input() noteCards = [];
   @Input() type;
   @Output() cardUpdate = new EventEmitter();
 
   @Input() cond;
-  constructor(private notes: NotesService, private dialog: MatDialog) {
+  constructor(private notes: NotesService, private dialog: MatDialog,private data:DataserviceService) {
     this.userId = localStorage.getItem("UserId")
 
     this.notes.getlabels(this.userId).subscribe(responselabels => {
@@ -47,6 +49,8 @@ export class DisplaynotesComponent implements OnInit {
     this.payLoad = jwt_decode(this.token)
     // this.getallnotes();
     console.log(this.cards);
+
+
   }
 
   openDialog(note) {

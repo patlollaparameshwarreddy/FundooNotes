@@ -41,11 +41,11 @@
   </button>
     <div fxFlex fxLayout='row' fxLayoutAlign="end center" >
     <div > 
-    <button  mat-mini-fab [matMenuTriggerFor]="menu" color='disabled' style="outline:none" >Basic</button>
+    <button  mat-fab [matMenuTriggerFor]="menu" color='disabled' style="outline:none" [ngStyle]="{'background-image': 'url(' + photo + ')'}">Basic</button>
     <mat-menu #menu="matMenu">
       <!-- <button inputType="file"></button> -->
       <input type="file"  #file (change)="onFileChanged($event)"  id="selectedFile" >
-      <img class="logo" src="http://res.cloudinary.com/dekmrle72/image/upload/v1555390054/r3fozhkh5prl8p8tyynk.jpg">
+      <button [ngStyle]="{'background-image': 'url(' + photo + ')'}" mat-fab></button>
         <button mat-menu-item (click)="signout()" routerLink="/login" >sign out</button>   
       </mat-menu>
     </div>   

@@ -19,7 +19,7 @@ export class AppService {
 
   profilepic(path,email){
     console.log(path,"profileeee");
-    return this.http.post(this.link + 'profile/' + email,path)
+    return this.http.post(this.link + 'profile/' + email,path,{responseType:'text'})
   }
 
   fbLogin(email)

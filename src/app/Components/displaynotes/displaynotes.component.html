@@ -1,6 +1,6 @@
 <!-- diaplay notes -->
 <div class="notesDisplay"  >
-  <div *ngFor="let note of noteCards" cdkDrag>
+  <div *ngFor="let note of noteCards |searchbar:search " cdkDrag>
     <div>  
       <mat-card *ngIf = "note.isPin == true && note.isArchive == false" fxLayoutGap="20px" class="cardDisplay" [style.background-color]=note.colorCode>
         <div (click)="openDialog(note)"> 
@@ -52,7 +52,7 @@
     <!-- unpin -->
     <!-- <input type="text" [(ngModel)]="searchText" placeholder="name"> -->
     <div class="notesDisplay" cdkDropList  (cdkDropListDropped)="drop($event)" >
-        <div *ngFor="let note of noteCards | filter:searchText" cdkDrag>
+        <div *ngFor="let note of noteCards | searchbar:search " cdkDrag>
           <div >
             <mat-card  *ngIf = "note.isPin == false" fxLayoutGap="20px" class="cardDisplay" [style.background-color]=note.colorCode>
               <div (click)="openDialog(note)">

@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('email', data.user.email);
       localStorage.setItem('firstname', data.user.firstName);
       localStorage.setItem('lastname', data.user.lastName);
+      localStorage.setItem('imgUrl',data.user.profilePic);
+
       // localStorage.setItem('firstname',)
       this.token = localStorage.getItem('token')
       this.payLoad = jwt_decode(this.token)
@@ -64,6 +66,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('email', data.user.email);
           localStorage.setItem('firstname', data.user.firstName);
           localStorage.setItem('lastname', data.user.lastName);
+          localStorage.setItem('imgUrl',data.profilePic);
           // localStorage.setItem('firstname',)
           this.token = localStorage.getItem('token')
           this.payLoad = jwt_decode(this.token)
