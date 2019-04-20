@@ -41,7 +41,7 @@
   </button>
     <div fxFlex fxLayout='row' fxLayoutAlign="end center" >
     <div > 
-    <button  mat-fab [matMenuTriggerFor]="menu" color='disabled' style="outline:none" [ngStyle]="{'background-image': 'url(' + photo + ')'}">Basic</button>
+    <button  mat-fab [matMenuTriggerFor]="menu" color='disabled' style="outline:none" [ngStyle]="{'background-image': 'url(' + photo + ')'}"></button>
     <mat-menu #menu="matMenu">
       <!-- <button inputType="file"></button> -->
       <input type="file"  #file (change)="onFileChanged($event)"  id="selectedFile" >
