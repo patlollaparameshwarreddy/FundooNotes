@@ -161,11 +161,11 @@ namespace FundooNotes.Controllers
             return Notes.RemoveCollaboratorToNote(id);
         }
 
-        //[HttpPost]
-        //[Route("check")]
-        //public string SharedNotes(string email)
-        //{
-        //    return Notes.SharedNotes(email);
-        //}
+        [HttpPost]
+        [Route("check")]
+        public object SharedNotes(int id)
+        {
+            return Notes.SharedNotes(id);
+        }
     }
 }

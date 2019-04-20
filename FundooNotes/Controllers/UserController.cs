@@ -139,9 +139,9 @@ namespace FundooNotes.Controllers
                     {
                         Subject = new ClaimsIdentity(new Claim[]
                   {
-                     
-                       new Claim("UserID", user.Id.ToString())
-                  }), 
+
+                         new Claim("UserID", user.Id.ToString())
+                  }),
                         Expires = DateTime.UtcNow.AddDays(1),
                         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.appSettings.Secret)), SecurityAlgorithms.HmacSha256Signature)
                     };
@@ -151,7 +151,8 @@ namespace FundooNotes.Controllers
                     var token = this.distributedCache.GetString(cacheKey);
                     token = tokenHandler.WriteToken(securityToken);
                     this.distributedCache.SetString(cacheKey, token);
-                    return this.Ok(new { token,user });
+                    return this.Ok(new { token, user });
+
                 }
                 else
                 {

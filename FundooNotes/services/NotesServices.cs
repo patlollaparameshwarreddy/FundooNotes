@@ -324,7 +324,7 @@ namespace FundooNotes.services
                 var data = from t in context.collaborators where t.UserId == model.UserId select t;
                 foreach (var datas in data.ToList())
                 {
-                    if (datas.NoteId == model.NoteId && datas.ReceiverEmail == model.ReceiverEmail)
+                    if (datas.notesModel == model.notesModel && datas.ReceiverEmail == model.ReceiverEmail)
                     {
                         return false.ToString();
                     }
@@ -333,7 +333,7 @@ namespace FundooNotes.services
                 var newdata = new CollaboratorModel()
                 {
                     UserId = model.UserId,
-                    NoteId = model.NoteId,
+                    notesModel = model.notesModel,
                     SenderEmail = model.SenderEmail,
                     ReceiverEmail = model.ReceiverEmail,
 
@@ -366,32 +366,14 @@ namespace FundooNotes.services
             }
         }
 
-        public string SharedNotes(string email)
+        public object SharedNotes(int id)
         {
-
-            var data = from n in context.Notes
-                       join c in context.collaborators on n.Id equals c.NoteId
-                       where c.ReceiverEmail == email
-                       select new
-                       {
-                           n.Id,
-                           n.Title,
-                           n.TakeANote,
-                           c.SenderEmail
-                       }.ToString();
-            return data.ToString();
-
-            //var list = new List<NotesModel>();
-            //var notesData = from notes in this.context.Notes
-            //                where notes.userId == userId
-            //                orderby notes.Id descending
-            //                select notes;
-            ////foreach (var item in notesData)
-            ////{
-            ////    list.Add(item);
-
-            ////}
-
+            Guid idfsdf = new Guid("7543a7df-802e-49b8-ae85-e429058afa92");
+            var notes = (from n in context.Notes
+                         join c in context.collaborators on n.Id equals c.NoteId
+                         where n.userId.Equals(idfsdf)
+                         select new { n, c }).ToList();
+            return notes;
         }
     }
 }

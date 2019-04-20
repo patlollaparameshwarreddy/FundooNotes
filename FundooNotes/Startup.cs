@@ -101,6 +101,8 @@ namespace FundooNotes
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
                     ValidateAudience = true,
+                    ValidAudience = "localhost",
+                    ValidIssuer = "localhost",
                     ClockSkew = TimeSpan.Zero
                 };
             });

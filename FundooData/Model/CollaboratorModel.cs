@@ -26,14 +26,6 @@ namespace FundooNotes.model
         public Guid UserId { get; set; }
 
         /// <summary>
-        /// Gets or sets the note identifier.
-        /// </summary>
-        /// <value>
-        /// The note identifier.
-        /// </value>
-        public int NoteId { get; set; }
-
-        /// <summary>
         /// Gets or sets the sender email.
         /// </summary>
         /// <value>
@@ -51,6 +43,20 @@ namespace FundooNotes.model
         [EmailAddress]
         public string ReceiverEmail { get; set; }
 
-        
+        /// <summary>
+        /// Gets or sets the notes model.
+        /// </summary>
+        /// <value>
+        /// The notes model.
+        /// </value>
+        public NotesModel notesModel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the note identifier.
+        /// </summary>
+        /// <value>
+        /// The note identifier.
+        /// </value>
+        public int NoteId { get; set; }
     }
 }

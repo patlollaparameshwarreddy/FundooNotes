@@ -102,9 +102,9 @@ namespace NotesApiTesting.NotesTesting
             throw new NotImplementedException();
         }
 
-        Task<object> INotes.ShareCollaborator(CollaboratorModel model)
-        {
-            throw new NotImplementedException();
-        }
+        //Task<object> INotes.ShareCollaborator(CollaboratorModel model)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
