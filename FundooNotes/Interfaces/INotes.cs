@@ -11,7 +11,7 @@ namespace FundooNotes.Interfaces
 {
     public interface INotes
     {
-        void AddNotes(NotesModel notesModel);
+        int AddNotes(NotesModel notesModel);
         void UpdateNotes([FromBody] NotesModel notesModel, int id);
         void DeleteNotes(int id);
         IList<GetNotesData> GetNotes(Guid userId);
@@ -26,6 +26,6 @@ namespace FundooNotes.Interfaces
         void DeleteNotesLabel(int id);
         string AddCollaboratorToNote([FromBody]CollaboratorModel model);
         string RemoveCollaboratorToNote(int id);
-        object SharedNotes(int id);
+        object collaboratorNote(string ReceiverEmail);
     }
 }

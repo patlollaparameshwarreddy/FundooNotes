@@ -44,10 +44,10 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <param name="notesModel">The notes model.</param>
         [HttpPost]
-        public void AddNotes(NotesModel notesModel)
+        public int AddNotes(NotesModel notesModel)
         {
 
-            Notes.AddNotes(notesModel);
+           return Notes.AddNotes(notesModel);
         }
 
         /// <summary>
@@ -161,11 +161,11 @@ namespace FundooNotes.Controllers
             return Notes.RemoveCollaboratorToNote(id);
         }
 
-        [HttpPost]
-        [Route("check")]
-        public object SharedNotes(int id)
+        [HttpGet]
+        [Route("collaboratornotes/{email}")]
+        public object collaboratorNote(string email)
         {
-            return Notes.SharedNotes(id);
+            return Notes.collaboratorNote(email);
         }
     }
 }

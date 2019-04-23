@@ -105,6 +105,5 @@ namespace FundooData.Model
         /// </value>
         public int position { get; set; }
 
-        public List<CollaboratorModel> collaborators { get; set; }
     }
 }

@@ -98,11 +98,7 @@ namespace FundooNotes.Migrations
 
                     b.Property<Guid>("UserId");
 
-                    b.Property<int?>("notesModelId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("notesModelId");
 
                     b.ToTable("collaborators");
                 });
@@ -305,13 +301,6 @@ namespace FundooNotes.Migrations
                     b.Property<string>("profilePic");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
-                });
-
-            modelBuilder.Entity("FundooNotes.model.CollaboratorModel", b =>
-                {
-                    b.HasOne("FundooData.Model.NotesModel", "notesModel")
-                        .WithMany("collaborators")
-                        .HasForeignKey("notesModelId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -32,7 +32,7 @@ namespace FundooNotes.services
         }
 
         
-        public void AddNotes(NotesModel notesModel)
+        public int AddNotes(NotesModel notesModel)
         {          
                 var user = new NotesModel()
                 {
@@ -51,10 +51,11 @@ namespace FundooNotes.services
                 {
                     this.context.Notes.Add(user);
                     result = this.context.SaveChanges();
+                return result;
                 }
                 catch (Exception ex)
                 {
-                    ex.ToString();
+                throw new Exception(ex.Message);
                 }    
         }
 
@@ -118,7 +119,7 @@ namespace FundooNotes.services
                 foreach (var item in notesData)
                 {
                     list.Add(item);
-                    
+                   
                 }
 
                 var Label = from t in context.labels where t.UserId == userId select t;
@@ -324,7 +325,7 @@ namespace FundooNotes.services
                 var data = from t in context.collaborators where t.UserId == model.UserId select t;
                 foreach (var datas in data.ToList())
                 {
-                    if (datas.notesModel == model.notesModel && datas.ReceiverEmail == model.ReceiverEmail)
+                    if (datas.NoteId == model.NoteId && datas.ReceiverEmail == model.ReceiverEmail)
                     {
                         return false.ToString();
                     }
@@ -333,7 +334,7 @@ namespace FundooNotes.services
                 var newdata = new CollaboratorModel()
                 {
                     UserId = model.UserId,
-                    notesModel = model.notesModel,
+                    NoteId = model.NoteId,
                     SenderEmail = model.SenderEmail,
                     ReceiverEmail = model.ReceiverEmail,
 
@@ -366,14 +367,39 @@ namespace FundooNotes.services
             }
         }
 
-        public object SharedNotes(int id)
+        public object collaboratorNote(string ReceiverEmail)
         {
-            Guid idfsdf = new Guid("7543a7df-802e-49b8-ae85-e429058afa92");
-            var notes = (from n in context.Notes
-                         join c in context.collaborators on n.Id equals c.NoteId
-                         where n.userId.Equals(idfsdf)
-                         select new { n, c }).ToList();
-            return notes;
+            try
+            {
+                var colldata = new List<NotesModel>();
+                var sharednotes = new List<SharedNotes>();
+                var data = from coll in this.context.collaborators where coll.ReceiverEmail == ReceiverEmail select new
+                {
+                    coll.SenderEmail,
+                    coll.NoteId
+                };
+
+                foreach (var result in data)
+                {
+                    var collnotes = from notes in this.context.Notes where notes.Id == result.NoteId select new SharedNotes
+                    {
+                       noteId = notes.Id,
+                       Title = notes.Title,
+                       TakeANote = notes.TakeANote,
+
+                    };
+                  foreach (var collaborator in collnotes)
+                    {
+                        sharednotes.Add(collaborator);
+                    }
+                }
+
+                return sharednotes;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

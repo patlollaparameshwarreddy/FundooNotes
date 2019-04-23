@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FundooNotes.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190322112210_added new column")]
-    partial class addednewcolumn
+    [Migration("20190423064424_new database")]
+    partial class newdatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,38 @@ namespace FundooNotes.Migrations
                 .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("FundooData.Model.LabelsModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Labels");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("labels");
+                });
+
+            modelBuilder.Entity("FundooData.Model.NotesLabelTable", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LableId");
+
+                    b.Property<int>("NoteId");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("notesLabels");
+                });
 
             modelBuilder.Entity("FundooData.Model.NotesModel", b =>
                 {
@@ -45,11 +77,47 @@ namespace FundooNotes.Migrations
 
                     b.Property<string>("Title");
 
+                    b.Property<int>("position");
+
                     b.Property<Guid>("userId");
 
                     b.HasKey("Id");
 
                     b.ToTable("Notes");
+                });
+
+            modelBuilder.Entity("FundooNotes.model.CollaboratorModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("NoteId");
+
+                    b.Property<string>("ReceiverEmail");
+
+                    b.Property<string>("SenderEmail");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("collaborators");
+                });
+
+            modelBuilder.Entity("FundooNotes.model.ProfilePic", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("id");
+
+                    b.ToTable("profile");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -231,6 +299,8 @@ namespace FundooNotes.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired();
+
+                    b.Property<string>("profilePic");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
