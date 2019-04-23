@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { MessagingService } from './shared/messaging.service';
+import { NotificationService } from './services/push_notification/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +10,12 @@ import { MessagingService } from './shared/messaging.service';
 export class AppComponent {
   title = 'Fundoo';
   message;
-constructor(private messagingService: MessagingService) { }
-ngOnInit() {
-  const userId = 'user001';
-    this.messagingService.getPermission();
-    this.messagingService.receiveMessage()
-    this.message = this.messagingService.currentMessage
+  constructor(private messagingService: NotificationService) { }
+  ngOnInit() {
+  this.messagingService.getPermission();
+  this.messagingService.receiveMessage()
+  this.message = this.messagingService.currentMessage
   }
+  
   
 }

@@ -1,23 +1,24 @@
 
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs'
-import * as firebase from 'firebase/app'
+// import * as firebase from 'firebase/app';
+
+import * as firebase from 'firebase';
 import 'firebase/messaging';
 @Injectable({
 providedIn: 'root'
 })
-export class MessagingService {
+export class NotificationService {
 currentMessage = new BehaviorSubject(null);
 messaging;
 constructor() {
-try{
+
 firebase.initializeApp({
 'messagingSenderId': '1067607768713'
 });
 this.messaging = firebase.messaging();
-}catch(err){
-console.error('Firebase initialization error', err.stack);
-}
+
+
 }
 
 /**
@@ -44,6 +45,3 @@ this.currentMessage.next(payload)
 });
 }
 }
-
-
-

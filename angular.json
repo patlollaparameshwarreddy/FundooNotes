@@ -24,7 +24,9 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/firebase-messaging-sw.js", 
+              "src/manifest.json" 
              
             
             ],
@@ -32,8 +34,8 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
-            "scripts": [],
-            "es5BrowserSupport": true
+            "scripts": []
+           
           },
           "configurations": {
             "production": {
@@ -93,7 +95,8 @@
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-              
+              "src/firebase-messaging-sw.js", 
+              "src/manifest.json" ,
               "src/assets"
             ]
           }
