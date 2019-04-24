@@ -27,5 +27,7 @@ namespace FundooNotes.Interfaces
         string AddCollaboratorToNote([FromBody]CollaboratorModel model);
         string RemoveCollaboratorToNote(int id);
         object collaboratorNote(string ReceiverEmail);
+        int updateCollaborator(SharedNotes sharedNotes, int id);
+        Task<object> checkCollaboratorEmail(string email);
     }
 }

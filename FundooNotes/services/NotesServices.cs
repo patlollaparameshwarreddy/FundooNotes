@@ -20,15 +20,18 @@ namespace FundooNotes.services
         /// </summary>
         private ApplicationDbContext context;
 
+        public UserManager<ApplicationUser> userManager { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NotesServices"/> class.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="userManager">The user manager.</param>
-        public NotesServices(ApplicationDbContext context)
+        public NotesServices(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             //this.userManager = userManager;
             this.context = context;
+            this.userManager = userManager;
         }
 
         
@@ -318,6 +321,19 @@ namespace FundooNotes.services
             }
         }
 
+        public async Task<object> checkCollaboratorEmail(string email)
+        {
+            var data = await this.userManager.FindByEmailAsync(email);
+            if (data.Email == email)
+            {
+                return data;
+            }
+            else
+            {
+                return "invalid user";
+            }
+        }
+
         public string AddCollaboratorToNote([FromBody]CollaboratorModel model)
         {
             try
@@ -386,7 +402,13 @@ namespace FundooNotes.services
                        noteId = notes.Id,
                        Title = notes.Title,
                        TakeANote = notes.TakeANote,
-
+                       sendermail = result.SenderEmail,
+                       IsPin = notes.IsPin,
+                       IsArchive = notes.IsArchive,
+                       IsTrash = notes.IsTrash,
+                       ColorCode = notes.ColorCode,
+                       ImageUrl = notes.ImageUrl,
+                       position = notes.position
                     };
                   foreach (var collaborator in collnotes)
                     {
@@ -400,6 +422,31 @@ namespace FundooNotes.services
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public int updateCollaborator(SharedNotes sharedNotes, int id)
+        {
+            try
+            {
+                NotesModel tableModel = this.context.Notes.Where<NotesModel>(t => t.Id == id).FirstOrDefault();
+                tableModel.Title = sharedNotes.Title;
+                tableModel.TakeANote = sharedNotes.TakeANote;
+                tableModel.IsPin = sharedNotes.IsPin;
+                tableModel.IsArchive = sharedNotes.IsArchive;
+                tableModel.IsTrash = sharedNotes.IsTrash;
+                tableModel.ColorCode = sharedNotes.ColorCode;
+                tableModel.ImageUrl = sharedNotes.ImageUrl;
+                tableModel.position = sharedNotes.position;
+
+                int result = 0;
+                result = this.context.SaveChanges();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
     }
 }

@@ -167,5 +167,19 @@ namespace FundooNotes.Controllers
         {
             return Notes.collaboratorNote(email);
         }
+
+        [HttpPut]
+        [Route("collaboratornotes/{id}")]
+        public int updateCollaborator(SharedNotes sharedNotes, int id)
+        {
+            return Notes.updateCollaborator(sharedNotes, id);
+        }
+
+        [HttpGet]
+        [Route("collaborator/{email}")]
+        public Task<object> checkCollaboratorEmail(string email)
+        {
+            return Notes.checkCollaboratorEmail(email);
+        }
     }
 }
