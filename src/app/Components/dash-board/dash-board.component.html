@@ -44,8 +44,9 @@
     <button class="profile"  mat-fab [matMenuTriggerFor]="menu" color='disabled' style="outline:none" [ngStyle]="{'background-image': 'url(' + photo + ')'}"></button>
     <mat-menu #menu="matMenu">
       <!-- <button inputType="file"></button> -->
-      <input type="file"  #file (change)="onFileChanged($event)"  id="selectedFile" >
-      <button class="profile" [ngStyle]="{'background-image': 'url(' + photo + ')'}" mat-fab></button>
+      <input style="display: none" type="file"  #file (change)="onFileChanged($event)"  id="selectedFile" #select >
+      <button class="profile" (click)="select.click()"  [ngStyle]="{'background-image': 'url(' + photo + ')'}" mat-fab></button>
+      <div>{{useremail}}</div>
         <button mat-menu-item (click)="signout()" routerLink="/login" >sign out</button>   
       </mat-menu>
     </div>   

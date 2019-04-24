@@ -17,6 +17,7 @@ import { ReminderComponent } from './Components/reminder/reminder.component';
 import { LabelsDialogComponent } from './Components/labels-dialog/labels-dialog.component';
 import { CollaboratordialogComponent } from './collaboratordialog/collaboratordialog.component';
 import { SearchcomponentComponent } from './Components/searchcomponent/searchcomponent.component';
+import { CollaboratedNotesComponent } from './Components/collaborated-notes/collaborated-notes.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,10 @@ const routes: Routes = [
       {
         path:'search',
         component:SearchcomponentComponent
+      },
+      {
+        path:'collaborator',
+        component:CollaboratedNotesComponent
       }
     ]
   },

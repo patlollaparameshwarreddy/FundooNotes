@@ -40,6 +40,7 @@ import { AsyncPipe } from '@angular/common';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SearchcomponentComponent } from './Components/searchcomponent/searchcomponent.component';
 import { SearchbarPipe } from './pipe/search/searchbar.pipe';
+import { CollaboratedNotesComponent } from './Components/collaborated-notes/collaborated-notes.component';
 
 
 export function getAuthServiceConfigs() {
@@ -74,6 +75,7 @@ export function getAuthServiceConfigs() {
     CollaboratordialogComponent,
     SearchcomponentComponent,
     SearchbarPipe,
+    CollaboratedNotesComponent,
 
   ],
   imports: [

@@ -26,7 +26,8 @@
       </button>
     </div>
     <div >
-      <input mat-input placeholder="email to share">
+      <input mat-input placeholder="email to share" [formControl]='userEmail'>
+      <mat-icon (click)=" checkemail()">done</mat-icon>
     </div>
   </div>
 

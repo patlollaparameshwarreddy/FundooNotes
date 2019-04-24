@@ -26,6 +26,7 @@ export class DashBoardComponent implements OnDestroy {
   email: string;
   value;
   selectedFile: File;
+  useremail=localStorage.getItem('email')
   photo=localStorage.getItem('imgUrl');
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private user: AppService,private data:DataserviceService, private notes: NotesService, public router:Router ,public dialog: MatDialog) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');

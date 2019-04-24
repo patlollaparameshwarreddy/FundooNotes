@@ -1,0 +1,59 @@
+.example {
+    background-color: #e8e8e8;
+  }
+  
+  .notesDisplay {
+    display: flex;
+    margin: 10px;
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 111px;
+  }
+  
+  .cardDisplay {
+    width: 270px;
+    flex-flow: row wrap;
+    flex-grow: 1;
+    margin: 14px;
+    position:relative;
+    margin-right: auto;
+    margin-right: auto
+  }
+  .notes {
+    margin-left: 0px;
+    opacity: 0.5;
+  }
+  
+  .fundoo-card {
+    width: 481px;
+    margin-top: 37px;
+    margin-left: 298px;
+    height: 0px;
+  }
+  
+  .titleinput {
+    border: none;
+    outline: none;
+    font-weight: bold;
+    font-size: large;
+    margin-bottom: 16px;
+  }
+  
+  .noteinput {
+    border: none;
+    outline: none;
+    width: 400px;
+    font-size: initial;
+  }
+  
+  .fundoo-card-content {
+    font-size: small;
+    line-height: 2px;
+  }
+  
+  .pin
+  {
+    margin-left: 220px;
+  }
+  

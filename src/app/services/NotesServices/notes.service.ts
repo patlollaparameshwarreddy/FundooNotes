@@ -39,8 +39,6 @@ loggedIn()
 
  updateNotes(result)
  {
-   console.log(result,"resulttyuty")
-   console.log(this.link,'notes' + result.id )
    return this.http.put('https://localhost:44360/api/notes/notes/' + result.id, result );
  }
 
@@ -128,5 +126,15 @@ loggedIn()
   {
     return this.http.delete(this.link+ '/' + 'label/' + lableid)
     
+  }
+
+  collaboratednotes(email)
+  {
+    return this.http.get(this.link + '/' + 'collaboratornotes/' + email)
+  }
+
+  updatecollaborated(id,note)
+  {
+    return this.http.put(this.link + '/' + 'collaboratornotes/' + id,note)
   }
 }
