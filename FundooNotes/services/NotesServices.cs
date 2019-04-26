@@ -330,7 +330,7 @@ namespace FundooNotes.services
             }
             else
             {
-                return "invalid user";
+                return null;
             }
         }
 
@@ -448,6 +448,33 @@ namespace FundooNotes.services
             }
 
         }
+
+        public IList<CollaboratorModel> getNotesCollaborator(Guid userId)
+        {
+            try
+            {
+                var list = new List<CollaboratorModel>();
+                var data = from t in this.context.collaborators where t.UserId == userId select t;
+                foreach (var result in data)
+                {
+                    list.Add(result);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        //public string AddFirebaseToken(Guid userid, string token)
+        //{
+        //    var data = from t in this.context.pushNotifications where t.UserId == userid select t;
+        //    if (data == null)
+        //    {
+                
+        //    }
+        //}
     }
 }
 

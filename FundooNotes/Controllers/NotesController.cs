@@ -147,6 +147,13 @@ namespace FundooNotes.Controllers
             Notes.DeleteNotesLabel(id);
         }
 
+        [HttpGet]
+        [Route("collaboratordata/{userId}")]
+        public IList<CollaboratorModel> getNotesCollaborator(Guid userId)
+        {
+            return Notes.getNotesCollaborator(userId);
+        }
+
         [HttpPost]
         [Route("collaborator")]
         public string AddCollaboratorToNote([FromBody]CollaboratorModel model)

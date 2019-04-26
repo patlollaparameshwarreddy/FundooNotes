@@ -79,5 +79,13 @@ namespace FundooNotes.DataContext
         /// The collaborators.
         /// </value>
         public DbSet<CollaboratorModel> collaborators { get; set; }
+
+        /// <summary>
+        /// Gets or sets the push notifications.
+        /// </summary>
+        /// <value>
+        /// The push notifications.
+        /// </value>
+        public DbSet<PushNotificationModel> pushNotifications { get; set; }
     }
 }
