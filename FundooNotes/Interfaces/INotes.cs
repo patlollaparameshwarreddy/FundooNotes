@@ -30,5 +30,6 @@ namespace FundooNotes.Interfaces
         int updateCollaborator(SharedNotes sharedNotes, int id);
         Task<object> checkCollaboratorEmail(string email);
         IList<CollaboratorModel> getNotesCollaborator(Guid userId);
+        int AddFirebaseToken([FromBody] PushNotificationModel pushNotification);
     }
 }

@@ -188,5 +188,12 @@ namespace FundooNotes.Controllers
         {
             return Notes.checkCollaboratorEmail(email);
         }
+
+        [HttpPut]
+        [Route("notification")]
+        public int AddFirebaseToken([FromBody] PushNotificationModel pushNotification)
+        {
+             return Notes.AddFirebaseToken(pushNotification);
+        }
     }
 }

@@ -467,14 +467,35 @@ namespace FundooNotes.services
             }
         }
 
-        //public string AddFirebaseToken(Guid userid, string token)
-        //{
-        //    var data = from t in this.context.pushNotifications where t.UserId == userid select t;
-        //    if (data == null)
-        //    {
-                
-        //    }
-        //}
+        public int AddFirebaseToken([FromBody] PushNotificationModel pushNotification)
+        {
+            try
+            {
+                var data = this.context.pushNotifications.Where(t => t.UserId == pushNotification.UserId).FirstOrDefault();
+                if (data == null)
+                {
+                    var newUser = new PushNotificationModel()
+                    {
+                        UserId = pushNotification.UserId,
+                        PushToken = pushNotification.PushToken
+                    };
+
+                    int save = 0;
+                    this.context.pushNotifications.Add(newUser);
+                    save = this.context.SaveChanges();
+                    return save;
+                }
+
+                data.PushToken = pushNotification.PushToken;
+                int result = 0;
+                result = this.context.SaveChanges();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
 
