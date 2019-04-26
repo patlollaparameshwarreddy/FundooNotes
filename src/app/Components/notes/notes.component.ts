@@ -25,8 +25,6 @@ export class NotesComponent implements OnInit {
     this.token = localStorage.getItem('token')
     this.payLoad =  jwt_decode(this.token)
    this.getallnotes();
-   console.log(this.cards);
-
    this.notes.getView().subscribe((res:any)=>{
     // debugger
       this.view = res;
@@ -38,34 +36,27 @@ export class NotesComponent implements OnInit {
   getallnotes()
   {
     this.notes.getNotes(this.payLoad.UserID).subscribe(data =>{
-      console.log(data,"notes.ts");
-      console.log()
       this.noteCards=[];
       this.cards=data[0].notesData;
-      console.log(this.cards);
       this.cards.forEach(element => {
         if(element.isArchive || element.isTrash){
           return;
         }
         else
         this.noteCards.push(element);
-
-        
       });
-      console.log(this.cards);
-
     },err=>{
       console.log(err);
       
     })
   }
+  
   update(value){
-    console.log(value,'event');
     this.getallnotes();
     
   }
+
   closed(value){
-    console.log(value,"from take note");
     this.getallnotes();
   }
 

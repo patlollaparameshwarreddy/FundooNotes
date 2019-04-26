@@ -19,6 +19,7 @@ export class DisplaynotesComponent implements OnInit {
   allLabels: any;
   notesLabels: any;
   userId;
+  notesCollaborator: any;
   searchText:string=''
   @Input() search;
   @Input() noteCards = [];
@@ -31,16 +32,22 @@ export class DisplaynotesComponent implements OnInit {
 
     this.notes.getlabels(this.userId).subscribe(responselabels => {
       this.allLabels = responselabels;
-      console.log(this.allLabels, "all labels")
     }, err => {
       console.log(err);
     })
 
     this.notes.getNotesLabels(this.userId).subscribe(response => {
       this.notesLabels = response;
-      console.log(this.notesLabels, "notes labels")
     }, err => {
       console.log(err);
+    })
+
+    this.notes. getAllCollaboratedData(this.userId).subscribe(result =>{
+      // console.log(result,"check");
+      this.notesCollaborator = result;
+    }, err => {
+      console.log(err);
+      
     })
   }
 
@@ -142,5 +149,15 @@ export class DisplaynotesComponent implements OnInit {
     console.log(event.currentIndex,"currenttt");
     console.log(event.container);
 
+  }
+
+  removeCollaborator(id)
+  {
+    this.notes.removeCollaborator(id).subscribe(data =>{
+      console.log(data);
+    },err =>{
+      console.log(err);
+      
+    })
   }
 }

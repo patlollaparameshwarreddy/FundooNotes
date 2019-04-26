@@ -12,17 +12,32 @@ export class CollaboratordialogComponent implements OnInit {
 firstname:any
 lastname:any
 email:any
+carddata:any
+userId=localStorage.getItem("UserId");
+  notesCollaborator: Object;
   constructor(public dialogRef: MatDialogRef<CollaboratordialogComponent>, private notes: NotesService,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { 
+     this.carddata = data;
+    this.notes. getAllCollaboratedData(this.userId).subscribe(result =>{
+      this.notesCollaborator = result;
+      console.log(this.notesCollaborator,"addnotescollaborator");
+    }, err => {
+      console.log(err);
+      
+    })
+    }
     userEmail = new FormControl('', [Validators.required, Validators.email]);
   ngOnInit() {
     this.firstname = localStorage.getItem("firstname");
     this.lastname = localStorage.getItem("lastname");
     this.email = localStorage.getItem("email");
+    console.log(this.carddata,"colldialog");
   }
   checkemail()
   {
    console.log(this.userEmail.value);
+   this.dialogRef.close(this.userEmail.value);
    
   }
+  
 }

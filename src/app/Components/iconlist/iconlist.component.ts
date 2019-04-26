@@ -14,21 +14,23 @@ export class IconlistComponent implements OnInit {
   getColor
   notesLabel: any;
   userId:any;
+  email:any;
+  userid:any;
   constructor(private notes:NotesService,private dialog: MatDialog) { 
     this.userId = localStorage.getItem('UserId')
     this.notes.getlabels(this.userId).subscribe(responselabels => {
       this.notesLabel = responselabels;
-      console.log(this.notesLabel)
     },err=>{
       console.log(err);
     })
+    this.userid = localStorage.getItem("UserId");
+    this.email = localStorage.getItem("email");
   }
   @Input() card;
   @Input() type;
   @Output() update =new EventEmitter();
   @Output() setcolortoNote = new EventEmitter()
   ngOnInit() {
-    console.log(this.type,"in consoli")
   }
   setcolor(color: any,card) {
     if(card==undefined){
@@ -50,7 +52,6 @@ export class IconlistComponent implements OnInit {
   {
     card.setArchive = true;
     card.isArchive = card.setArchive;
-    console.log(card);
     this.notes.updateNotes(card).subscribe(data =>{
       console.log(data);
       this.update.emit({});
@@ -63,7 +64,6 @@ export class IconlistComponent implements OnInit {
   {
     card.setArchive = false;
     card.isArchive = card.setArchive;
-    console.log(card);
     this.notes.updateNotes(card).subscribe(data =>{
       console.log(data);
       this.update.emit({});
@@ -86,8 +86,6 @@ export class IconlistComponent implements OnInit {
 
   LabelList(label)
   {
-    console.log(label.id);
-    console.log(this.card.id);
     this.userId = localStorage.getItem('UserId')
     var notesLabel = {
       "LableId":label.id,
@@ -142,10 +140,43 @@ export class IconlistComponent implements OnInit {
     })
   }
 
-  openDialog(): void {
+  openDialog(card): void {
     const dialogConfig = new MatDialogConfig();
     let dialogRef = this.dialog.open(CollaboratordialogComponent, {
-
+      data:card
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != this.email)
+      {
+        this.notes.checkcollaborator(result).subscribe(data =>
+          {
+            console.log(data);
+            var collaboratordata = {
+             "UserId":this.userid,
+             "NoteId":card.id,
+             "SenderEmail":this.email,
+             "ReceiverEmail":result
+            }
+            this.notes.addCollaboratorToNote(collaboratordata).subscribe(result =>
+              {
+                console.log(result);
+                
+              },err =>
+              {
+                console.log(err);
+                
+              })
+          },err =>{
+            console.log(err);
+          })
+      }
+      else
+      {
+        console.log("invalid user");
+        
+      }
     });
   }
+
+ 
 }

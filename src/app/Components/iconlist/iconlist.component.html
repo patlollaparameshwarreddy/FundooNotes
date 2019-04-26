@@ -10,27 +10,28 @@
   <button mat-menu-item>Pick date & time</button>
 </mat-menu>
 
-  <button mat-icon-button (click)="openDialog()">
+  <button style="outline: none" mat-icon-button (click)="openDialog(card)">
     <mat-icon class="mat-18">person_add</mat-icon>
   </button>
-  
-  <button mat-icon-button  [matMenuTriggerFor]="colorMenu">
+
+  <button style="outline: none" mat-icon-button  [matMenuTriggerFor]="colorMenu">
     <mat-icon class="mat-18">color_lens</mat-icon>
   </button>
 
-  <button mat-icon-button>
+  <button style="outline: none" mat-icon-button (click)="selectFile.click()">
+     <input style="display: none" type="file" #selectFile>
     <mat-icon class="mat-18">photo</mat-icon>
   </button>
 
-  <button mat-icon-button *ngIf='type!="archive"' matTooltip="Archive" (click)="setArchive(card)">
+  <button style="outline: none" mat-icon-button *ngIf='type!="archive"' matTooltip="Archive" (click)="setArchive(card)">
       <mat-icon class="mat-18">archive</mat-icon>
   </button>
 
-  <button mat-icon-button *ngIf='type=="archive"' matTooltip="Archive" (click)="doUnArchive(card)">
+  <button style="outline: none" mat-icon-button *ngIf='type=="archive"' matTooltip="Archive" (click)="doUnArchive(card)">
       <mat-icon class="mat-18">unarchive</mat-icon>
   </button>
 
-  <button mat-icon-button  [matMenuTriggerFor]="menu">
+  <button style="outline: none" mat-icon-button  [matMenuTriggerFor]="menu">
     <i class="material-icons">more_vert</i>
   </button>
 

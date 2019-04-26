@@ -123,7 +123,7 @@ loggedIn()
    }
 
    deletelabel(lableid)
-  {
+  {  
     return this.http.delete(this.link+ '/' + 'label/' + lableid)
     
   }
@@ -136,5 +136,30 @@ loggedIn()
   updatecollaborated(id,note)
   {
     return this.http.put(this.link + '/' + 'collaboratornotes/' + id,note)
+  }
+
+  checkcollaborator(email)
+  {
+    return this.http.get(this.link + '/' + 'collaborator/' + email)
+  }
+
+  addCollaboratorToNote(collaboratordata)
+  {
+    return this.http.post(this.link + '/'+'collaborator',collaboratordata)
+  }
+
+  getAllCollaboratedData(userId)
+  {
+    return this.http.get(this.link +'/' + 'collaboratordata/' + userId)
+  }
+
+  removeCollaborator(id)
+  {
+    return this.http.delete(this.link + '/collaborator',
+    {
+      params:{
+        id:id
+      }
+    } )
   }
 }

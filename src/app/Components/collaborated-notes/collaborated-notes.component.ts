@@ -11,7 +11,16 @@ import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 export class CollaboratedNotesComponent implements OnInit {
   userEmail:any
   noteCards:any
-  constructor(private notes: NotesService,private dialog: MatDialog ) { }
+  notesCollaborator: Object;
+  userId=localStorage.getItem("UserId");
+  constructor(private notes: NotesService,private dialog: MatDialog ) { 
+    this.notes. getAllCollaboratedData(this.userId).subscribe(result =>{
+      this.notesCollaborator = result;
+    }, err => {
+      console.log(err);
+      
+    })
+  }
 
   ngOnInit() {
 
@@ -22,7 +31,6 @@ export class CollaboratedNotesComponent implements OnInit {
   getallnotes()
   {
     this.notes.collaboratednotes(this.userEmail).subscribe(data =>{
-      console.log(data,"collaborator notes");
       this.noteCards = data;
     },err=>{
       console.log(err);

@@ -18,6 +18,18 @@
       </div>
     </span>
   </div>
+  <div  *ngFor = "let shared of notesCollaborator">
+    <div *ngIf = "shared.noteId == carddata.id">
+          <span fxLayout="row">
+      <button mat-icon-button class="icon">
+        <mat-icon>person_outline</mat-icon>
+      </button>
+      <div fxLayout="column">
+    <div class="usernameStyle"> {{shared.receiverEmail}}</div>
+      </div>
+    </span>
+    </div>
+  </div>
 
   <div fxLayout="row" style="position: relative;">
     <div class="user">
@@ -27,12 +39,12 @@
     </div>
     <div >
       <input mat-input placeholder="email to share" [formControl]='userEmail'>
-      <mat-icon (click)=" checkemail()">done</mat-icon>
+      <mat-icon >done</mat-icon>
     </div>
   </div>
 
   <div mat-dialog-actions class="actionDialog">
     <button mat-raised-button class="actionButton" [mat-dialog-close]>Cancel</button>
-    <button mat-raised-button class="actionButton" [mat-dialog-close]>Save</button>
+    <button mat-raised-button class="actionButton" [mat-dialog-close] (click)="checkemail()" >Save</button>
   </div>
 </div>
