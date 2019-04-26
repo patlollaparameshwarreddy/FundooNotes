@@ -162,4 +162,9 @@ loggedIn()
       }
     } )
   }
+
+  pushnotificationtoken(data)
+  {
+    return this.http.put(this.link +'/notification',data)
+  }
 }

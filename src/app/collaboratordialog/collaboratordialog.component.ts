@@ -20,7 +20,6 @@ userId=localStorage.getItem("UserId");
      this.carddata = data;
     this.notes. getAllCollaboratedData(this.userId).subscribe(result =>{
       this.notesCollaborator = result;
-      console.log(this.notesCollaborator,"addnotescollaborator");
     }, err => {
       console.log(err);
       
@@ -31,7 +30,6 @@ userId=localStorage.getItem("UserId");
     this.firstname = localStorage.getItem("firstname");
     this.lastname = localStorage.getItem("lastname");
     this.email = localStorage.getItem("email");
-    console.log(this.carddata,"colldialog");
   }
   checkemail()
   {

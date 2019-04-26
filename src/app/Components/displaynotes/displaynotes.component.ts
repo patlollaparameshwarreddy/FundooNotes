@@ -29,7 +29,6 @@ export class DisplaynotesComponent implements OnInit {
   @Input() cond;
   constructor(private notes: NotesService, private dialog: MatDialog,private data:DataserviceService) {
     this.userId = localStorage.getItem("UserId")
-
     this.notes.getlabels(this.userId).subscribe(responselabels => {
       this.allLabels = responselabels;
     }, err => {
@@ -55,9 +54,6 @@ export class DisplaynotesComponent implements OnInit {
     this.token = localStorage.getItem('token')
     this.payLoad = jwt_decode(this.token)
     // this.getallnotes();
-    console.log(this.cards);
-
-
   }
 
   openDialog(note) {
@@ -126,7 +122,6 @@ export class DisplaynotesComponent implements OnInit {
     note.isPin = true;
     note.isPin = note.isPin;
     this.notes.updateNotes(note).subscribe(data =>{
-      console.log(data);
     },err =>{
       console.log(err);
     })

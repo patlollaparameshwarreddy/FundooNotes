@@ -55,7 +55,6 @@ export class DashBoardComponent implements OnDestroy {
     // debugger
     if (this.islist) {
       this.islist = false;
-      console.log("list", this.islist);
       this.isClicked = true;
     }
 
