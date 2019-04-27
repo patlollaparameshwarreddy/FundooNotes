@@ -118,7 +118,7 @@ export class IconlistComponent implements OnInit {
   {
     var date = new Date();
     date.setHours(8,0,0)
-    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate()+1) + " " +  date.getHours() + ":" + date.getMinutes();
+    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate()+1) + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     this.notes.updateNotes(card).subscribe(data =>{
       console.log(data);
       this.update.emit({});
@@ -130,8 +130,9 @@ export class IconlistComponent implements OnInit {
   nextWeek(card)
   {
     var date = new Date();
+    date.setDate(date.getDate()+7);
     date.setHours(8,0,0)
-    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate()+7) + " " +  date.getHours() + ":" + date.getMinutes();
+    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate()) + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();  
     this.notes.updateNotes(card).subscribe(data =>{
       console.log(data);
       this.update.emit({});

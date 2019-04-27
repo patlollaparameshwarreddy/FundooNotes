@@ -65,7 +65,6 @@ export class DisplaynotesComponent implements OnInit {
       data: { note }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       this.notes.updateNotes(result).subscribe(data => {
         console.log(data);
       }, err => {
