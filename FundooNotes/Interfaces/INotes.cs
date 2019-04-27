@@ -31,5 +31,7 @@ namespace FundooNotes.Interfaces
         Task<object> checkCollaboratorEmail(string email);
         IList<CollaboratorModel> getNotesCollaborator(Guid userId);
         int AddFirebaseToken([FromBody] PushNotificationModel pushNotification);
+        string CheckNotifications(Guid userId);
+        string SendNotification(string DeviceToken, string title, string msg);
     }
 }

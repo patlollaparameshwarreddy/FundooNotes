@@ -7,7 +7,9 @@ namespace FundooNotes.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Net;
     using System.Threading.Tasks;
     using FundooData.Model;
     using FundooNotes.DataContext;
@@ -17,6 +19,7 @@ namespace FundooNotes.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// this is the controller class
@@ -194,6 +197,13 @@ namespace FundooNotes.Controllers
         public int AddFirebaseToken([FromBody] PushNotificationModel pushNotification)
         {
              return Notes.AddFirebaseToken(pushNotification);
+        }
+
+
+        [HttpGet("check")]
+        public string CheckNotifications(Guid userId)
+        {
+           return Notes.CheckNotifications(userId);
         }
     }
 }
