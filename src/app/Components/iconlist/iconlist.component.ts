@@ -105,7 +105,8 @@ export class IconlistComponent implements OnInit {
   {
     var date = new Date();
     date.setHours(20,0,0)
-    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + ('0' + date.getMinutes())+ ":" + date.getSeconds();
+    console.log(card.reminder,"todayyyy");
     this.notes.updateNotes(card).subscribe(data =>{
       console.log(data);
       this.update.emit({});
@@ -118,7 +119,7 @@ export class IconlistComponent implements OnInit {
   {
     var date = new Date();
     date.setHours(8,0,0)
-    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate()+1) + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate()+1) + " " +  date.getHours() + ":" + ('0' +date.getMinutes()) + ":" + date.getSeconds();
     this.notes.updateNotes(card).subscribe(data =>{
       console.log(data);
       this.update.emit({});
@@ -132,7 +133,7 @@ export class IconlistComponent implements OnInit {
     var date = new Date();
     date.setDate(date.getDate()+7);
     date.setHours(8,0,0)
-    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate()) + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();  
+    card.reminder = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate()) + " " +  date.getHours() + ":" + ('0' + date.getMinutes()) + ":" + date.getSeconds();  
     this.notes.updateNotes(card).subscribe(data =>{
       console.log(data);
       this.update.emit({});
