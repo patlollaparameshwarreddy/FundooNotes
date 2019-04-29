@@ -510,11 +510,11 @@ namespace FundooNotes.services
                 {
                 foreach (var item in notesData)
                 {
-                    //string hour = item.Reminder.Substring(10, 2);
-                    //return DateTime.Now.Hour.ToString();
-                    //string min = item.Reminder.Substring(13, 2);
-                    ////return min +" " + hour;
-                    if (DateTime.Now.Hour == 17 && DateTime.Now.Minute == 58)
+                    string hour = item.Reminder.Substring(10, 2);
+                    string min = item.Reminder.Substring(13, 2);
+                    int hour1 = Convert.ToInt32(hour);
+                    int min1 = Convert.ToInt32(min);
+                    if (DateTime.Now.Hour == hour1 && DateTime.Now.Minute == min1)
                     {
                         var title = item.Title;
                         var msg = item.TakeANote;
