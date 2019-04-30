@@ -510,16 +510,25 @@ namespace FundooNotes.services
                 {
                 foreach (var item in notesData)
                 {
-                    string hour = item.Reminder.Substring(10, 2);
-                    string min = item.Reminder.Substring(13, 2);
-                    int hour1 = Convert.ToInt32(hour);
-                    int min1 = Convert.ToInt32(min);
-                    if (DateTime.Now.Hour == hour1 && DateTime.Now.Minute == min1)
+                    if (item.Reminder != null)
                     {
-                        var title = item.Title;
-                        var msg = item.TakeANote;
-                        var token = this.context.pushNotifications.Where(t => t.UserId == userId).FirstOrDefault();
-                        return SendNotification(token.PushToken.ToString(), title, msg);
+                        string hour = item.Reminder.Substring(10, 2);
+                        string min = item.Reminder.Substring(13, 2);
+                        string year = item.Reminder.Substring(0, 4);
+                        string month = item.Reminder.Substring(5, 1);
+                        string day = item.Reminder.Substring(7, 2);
+                        int hour1 = Convert.ToInt32(hour);
+                        int min1 = Convert.ToInt32(min);
+                        int year1 = Convert.ToInt32(year);
+                        int month1 = Convert.ToInt32(month);
+                        int day1 = Convert.ToInt32(day);
+                        if (DateTime.Now.Hour == hour1 && DateTime.Now.Minute == min1 && DateTime.Now.Year == year1 && DateTime.Now.Month == month1 && DateTime.Now.Day == day1)
+                        {
+                            var title = item.Title;
+                            var msg = item.TakeANote;
+                            var token = this.context.pushNotifications.Where(t => t.UserId == userId).FirstOrDefault();
+                            return SendNotification(token.PushToken.ToString(), title, msg);
+                        }
                     }
                 }
             }
